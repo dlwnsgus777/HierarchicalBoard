@@ -2,7 +2,6 @@ package com.board.webserivce.domain;
 
 
 import static org.hamcrest.CoreMatchers.is;
-import static org.junit.Assert.assertThat;
 
 import java.util.List;
 
@@ -29,7 +28,7 @@ public class UsersRepositoryTest {
 	}
 	
 	@Test
-	public void addPosts() {
+	public void addUsers() {
 		//given
 		userRepository.save(Users.builder()
 							.userId("test")
@@ -45,5 +44,4 @@ public class UsersRepositoryTest {
 		assertThat(users.getUserId(), is("test"));
 		assertThat(users.getUserName(), is("test¿ë")); 
 	}
-
 }
