@@ -1,7 +1,9 @@
 package com.board.webserivce.domain;
 
 
+import static org.assertj.core.api.Assertions.assertThat;
 import static org.hamcrest.CoreMatchers.is;
+import static org.junit.Assert.assertThat;
 
 import java.util.List;
 
@@ -33,7 +35,7 @@ public class UsersRepositoryTest {
 		userRepository.save(Users.builder()
 							.userId("test")
 							.password("test")
-							.userName("test¿ë")
+							.userName("testìš©")
 							.build());
 		
 		//when
@@ -42,6 +44,6 @@ public class UsersRepositoryTest {
 		//then
 		Users users = usersList.get(0);
 		assertThat(users.getUserId(), is("test"));
-		assertThat(users.getUserName(), is("test¿ë")); 
+		assertThat(users.getUserName(), is("testìš©")); 
 	}
 }

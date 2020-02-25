@@ -1,0 +1,28 @@
+<html lang="ko"
+	xmlns:th="http://www.thymeleaf.org"
+	xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+<head>
+    <title>고수의 발자취를 따라서</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+</head>
+<body>
+	<header>
+		<h2>테스트 레이아웃</h2>
+	</header>
+	<nav class="navbar navbar-expand-lg navbar-light" id="nav_area">
+		<a href="/">main</a>
+		<a href="/hello">hello</a>
+	</nav>
+	<section layout:fragment="f-content"></section>
+	<footer>
+		<p>
+			개발인생
+		</p>
+	</footer>
+
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+</body>
+</html>
