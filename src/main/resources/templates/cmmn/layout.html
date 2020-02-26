@@ -1,28 +1,39 @@
-<html lang="ko"
-	xmlns:th="http://www.thymeleaf.org"
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org"
 	xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5"
 	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
 <head>
-    <title>고수의 발자취를 따라서</title>
-    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>고수의 발자취를 따라서</title>
+<!-- 부트스트랩 -->
+<link rel="stylesheet" href="/css/lib/bootstrap.min.css">
+	
+	<style>
+	.wrap__content {
+	margin-top: 100px;
+	}
+	</style>
 </head>
 <body>
 	<header>
-		<h2>테스트 레이아웃</h2>
+		<h4>계층형 게시판</h4>
 	</header>
-	<nav class="navbar navbar-expand-lg navbar-light" id="nav_area">
-		<a href="/">main</a>
-		<a href="/hello">hello</a>
-	</nav>
-	<section layout:fragment="f-content"></section>
+	<ul class="nav nav-tabs">
+		<li role="presentation"><a href="/">main</a>
+		<li role="presentation"><a href="/hello">hello</a>
+	</ul>
+	<section layout:fragment="content"></section>
 	<footer>
-		<p>
-			개발인생
-		</p>
+		<div class="footer-copyright text-center py-3">
+			by 개발인생
+		</div>
 	</footer>
 
-	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
-	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+	<!-- Jquery, bootstrap -->
+	<script src="/js/lib/jquery.min.js"></script>
+	<script src="/js/lib/bootstrap.min.js"></script>
 </body>
 </html>
+

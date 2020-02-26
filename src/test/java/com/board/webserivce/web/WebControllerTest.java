@@ -20,10 +20,10 @@ public class WebControllerTest {
 	@Test
 	public void 메인페이지() {
 		//when
-		String body = this.testRestTemplate.getForObject("/", String.class);
+		String body = this.testRestTemplate.getForObject("/hello", String.class);
 		
 		//then
-		assertThat(body).contains("테스트해보자");
+		assertThat(body).contains("요틀레히후");
 		
 	}
 }

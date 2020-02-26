@@ -16,7 +16,7 @@ public class WebController {
 	
 	@GetMapping("/hello")
 	public String hello() {
-		return "contents/test";
+		return "contents/hello";
 	}
 
 }

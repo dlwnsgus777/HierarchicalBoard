@@ -4,7 +4,64 @@
 	xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5"
 	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
 	layout:decorate="~{cmmn/layout}">
-<section layout:fragment="f-content">
-	<h1>테스트해보자</h1>
+
+<section layout:fragment="content">
+	<div class="row wrap__content">
+	<div class="col-md-6 col-md-offset-3">
+	<form class="form-horizontal">
+  <div class="form-group">
+    <label for="inputEmail3" class="col-sm-2 control-label">Email</label>
+    <div class="col-sm-10">
+      <input type="email" class="form-control" id="inputEmail3" placeholder="Email">
+    </div>
+  </div>
+  <div class="form-group">
+    <label for="inputPassword3" class="col-sm-2 control-label">Password</label>
+    <div class="col-sm-10">
+      <input type="password" class="form-control" id="inputPassword3" placeholder="Password">
+    </div>
+  </div>
+  <div class="form-group">
+    <div class="col-sm-offset-2 col-sm-10">
+      <button type="submit" class="btn btn-default">Sign in</button>
+              <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#accountUserModal">회원가입</button>
+    </div>
+  </div>
+</form>
+
+    <div class="modal fade" id="accountUserModal" tabindex="-1" role="dialog" aria-labelledby="accountUserLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="accountUserLabel">회원 가입</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <form>
+                        <div class="form-group">
+                            <label for="user_name">이름</label>
+                            <input type="text" class="form-control" id="userName" placeholder="이름을 입력하세요">
+                        </div>
+                        <div class="form-group">
+                            <label for="user_id">아이디</label>
+                            <input type="text" class="form-control" id="userId" placeholder="아이디를 입력하세요">
+                        </div>
+                        <div class="form-group">
+                            <label for="password">패스워드</label>
+                            <input class="form-control" id="password" placeholder="비밀번호을 입력하세요"></input>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">취소</button>
+                    <button type="button" class="btn btn-primary" id="btn-save">가입</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    </div>
+</div>
 </section>
 
