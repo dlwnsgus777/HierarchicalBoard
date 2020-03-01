@@ -6,15 +6,20 @@
 <meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1">
+
+<meta name="_csrf" th:content="${_csrf.token}"/>
+<meta name="_csrf_header" th:content="${_csrf.headerName}"/>
+
 <title>고수의 발자취를 따라서</title>
 <!-- 부트스트랩 -->
 <link rel="stylesheet" href="/css/lib/bootstrap.min.css">
 
 <style>
-body{
-margin: 0;
+body {
+	margin: 0;
 	padding: 0;
 }
+
 .wrap__content {
 	margin-top: 100px;
 }
@@ -36,6 +41,8 @@ margin: 0;
 	<!-- Jquery, bootstrap -->
 	<script src="/js/lib/jquery.min.js"></script>
 	<script src="/js/lib/bootstrap.min.js"></script>
+	<script src="/js/app/main.js"></script>
+
 </body>
 </html>
 
