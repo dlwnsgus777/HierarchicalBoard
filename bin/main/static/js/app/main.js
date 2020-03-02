@@ -40,29 +40,10 @@ let main = {
 		})
 	},
 	userLogin : function() {
-		let $this = this;
-		let suerSignIn = document.querySelector("#login-btn");
+		let userSignIn = document.querySelector("#login-btn");
 
-		suerSignIn.addEventListener("click", function() {
-			let data = {
-					username : $("#username").val(),
-					password : $("#password").val()
-				}
-			console.log(data)
-	        $.ajax({
-	            type: 'POST',
-	            url: '/',//user/login
-	            //dataType: 'html',
-	            //contentType:'application/x-www-form-urlencoded; charset=utf-8',
-	            data: JSON.stringify(data),
-	            beforeSend: function(xhr) {
-					xhr.setRequestHeader($this.csrf.header, $this.csrf.token);
-				}
-	        }).done(function(result) {
-	        	console.log(result)
-	        }).fail(function (error) {
-	            console.log(error);
-	        });
+		userSignIn.addEventListener("click", function() {
+			$("#login-frm").submit();
 		});
 	}
 }
