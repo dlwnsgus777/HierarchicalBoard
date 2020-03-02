@@ -10,6 +10,7 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
 import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 
 import com.board.webserivce.service.UserSecurityService;
@@ -41,8 +42,10 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 			.antMatchers("/**").permitAll()
 		.and()	// 로그인 설정
 			.formLogin()
-			.loginPage("/user/login")
-			.defaultSuccessUrl("/hello")
+			.loginPage("/")
+			//.loginProcessingUrl("/user/login")
+			.defaultSuccessUrl("/hello", true)
+			.usernameParameter("username") .passwordParameter("password")
 			.permitAll()
 		.and()	// 로그아웃 설정
 			.logout()
@@ -57,5 +60,4 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 	public void configure(AuthenticationManagerBuilder auth) throws Exception {
 		auth.userDetailsService(userSecurityService).passwordEncoder(passwordEncoder());
 	}
-
 }

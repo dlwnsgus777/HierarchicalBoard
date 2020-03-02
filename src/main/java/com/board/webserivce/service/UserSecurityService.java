@@ -1,6 +1,7 @@
 package com.board.webserivce.service;
 
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
 
 import org.springframework.security.core.GrantedAuthority;
@@ -35,8 +36,10 @@ public class UserSecurityService implements UserDetailsService  {
 	@Override
 	public UserDetails loadUserByUsername(String userId) throws UsernameNotFoundException {
 		// TODO Auto-generated method stub
+		System.out.println("???tq: " + userId);
 		Optional<Users> userEntitiy = usersRepository.findByUserId(userId);
 		Users user = userEntitiy.get();
+		System.out.println("너냐" + user.getUserId());
 		ArrayList<GrantedAuthority> authorities = new ArrayList<>();
 		
 		authorities.add(new SimpleGrantedAuthority("ROLE_USER"));

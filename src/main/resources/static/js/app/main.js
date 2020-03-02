@@ -28,8 +28,11 @@ let main = {
     			}
 	        }).done(function(result) {
 	        	if (result.msg === "save") {
-		        	alert("회원가입에 성공했습니다.")
+		        	alert("회원가입에 성공했습니다.");
 		        	location.reload();
+	        	} else {
+	        		alert("회원가입에 실패했습니다. 다시 가입해주세요");
+	        		location.reload();
 	        	}
 	        }).fail(function (error) {
 	            console.log(error);
@@ -48,15 +51,15 @@ let main = {
 			console.log(data)
 	        $.ajax({
 	            type: 'POST',
-	            url: '/user/login',
-	            dataType: 'html',
-	            contentType:'application/json; charset=utf-8',
+	            url: '/',//user/login
+	            //dataType: 'html',
+	            //contentType:'application/x-www-form-urlencoded; charset=utf-8',
 	            data: JSON.stringify(data),
 	            beforeSend: function(xhr) {
 					xhr.setRequestHeader($this.csrf.header, $this.csrf.token);
 				}
 	        }).done(function(result) {
-	        	
+	        	console.log(result)
 	        }).fail(function (error) {
 	            console.log(error);
 	        });

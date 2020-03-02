@@ -25,7 +25,7 @@ public class WebController {
 		return "contents/hello";
 	}
 	
-	@GetMapping("/error")
+	@GetMapping("/login/error")
 	public String error() {
 		System.out.println("??");
 		return "contents/error";
