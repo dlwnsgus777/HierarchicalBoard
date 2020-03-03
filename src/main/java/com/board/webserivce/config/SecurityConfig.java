@@ -38,13 +38,12 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 	protected void configure(HttpSecurity http) throws Exception {
 		// 페이지 접근 권한에 대한 설정
 		http.authorizeRequests()
-			.antMatchers("/hello").hasRole("USER")
+			//.antMatchers("/hello").hasRole("USER")
 			.antMatchers("/**").permitAll()
 		.and()	// 로그인 설정
 			.formLogin()
 			.loginPage("/")
 			.loginProcessingUrl("/user/login")
-			.usernameParameter("username") .passwordParameter("password")
 			.defaultSuccessUrl("/hello")
 			.permitAll()
 		.and()	// 로그아웃 설정
