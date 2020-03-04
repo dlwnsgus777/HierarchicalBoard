@@ -39,7 +39,6 @@ public class UserSecurityService implements UserDetailsService  {
 		System.out.println("???tq: " + userId);
 		Optional<Users> userEntitiy = usersRepository.findByUserId(userId);
 		Users user = userEntitiy.get();
-		System.out.println("너냐" + user.getUserId());
 		ArrayList<GrantedAuthority> authorities = new ArrayList<>();
 		
 		authorities.add(new SimpleGrantedAuthority("ROLE_USER"));

@@ -2,7 +2,6 @@ package com.board.webserivce.config;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.builders.WebSecurity;
@@ -10,7 +9,6 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
-import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
 import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 
 import com.board.webserivce.service.UserSecurityService;
@@ -38,13 +36,13 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 	protected void configure(HttpSecurity http) throws Exception {
 		// 페이지 접근 권한에 대한 설정
 		http.authorizeRequests()
-			//.antMatchers("/hello").hasRole("USER")
+			.antMatchers("/hello").hasRole("USER")
 			.antMatchers("/**").permitAll()
 		.and()	// 로그인 설정
 			.formLogin()
 			.loginPage("/")
 			.loginProcessingUrl("/user/login")
-			.defaultSuccessUrl("/hello")
+			.defaultSuccessUrl("/hello", true)
 			.permitAll()
 		.and()	// 로그아웃 설정
 			.logout()
@@ -52,7 +50,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 			.logoutSuccessUrl("/")
 			.invalidateHttpSession(true)
 		.and() // 403 예외처리 설정
-			.exceptionHandling().accessDeniedPage("/error");
+			.exceptionHandling().accessDeniedPage("/login/error");
 	}
 	
 	@Override

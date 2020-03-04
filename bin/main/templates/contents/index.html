@@ -18,7 +18,7 @@
 				<div class="form-group">
 					<label for="inputPassword3" class="col-sm-2 control-label">Password</label>
 					<div class="col-sm-10">
-						<input type="password" class="form-control" id="password"
+						<input type="password" class="form-control" id="password" name="password"
 							placeholder="Password">
 					</div>
 				</div>
@@ -31,7 +31,7 @@
 					</div>
 				</div>
 			</form>
-
+<a sec:authorize="isAnonymous()" th:href="@{/user/info}">내정보</a>
 			<div class="modal fade" id="accountUserModal" tabindex="-1"
 				role="dialog" aria-labelledby="accountUserLabel" aria-hidden="true">
 				<div class="modal-dialog" role="document">
