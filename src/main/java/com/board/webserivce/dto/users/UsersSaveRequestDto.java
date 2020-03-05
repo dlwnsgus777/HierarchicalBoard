@@ -2,6 +2,7 @@ package com.board.webserivce.dto.users;
 
 import com.board.webserivce.domain.users.Users;
 
+import groovy.transform.builder.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -21,5 +22,12 @@ public class UsersSaveRequestDto {
 				.password(password)
 				.userName(userName)
 				.build();
+	}
+	
+	@Builder
+	public UsersSaveRequestDto(String userId, String password, String userName) {
+		this.userId = userId;
+		this.password = password;
+		this.userName = userName;
 	}
 }

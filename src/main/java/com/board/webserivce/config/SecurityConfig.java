@@ -43,6 +43,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 			.loginPage("/")
 			.loginProcessingUrl("/user/login")
 			.defaultSuccessUrl("/hello", true)
+			.failureUrl("/login/error")
 			.permitAll()
 		.and()	// 로그아웃 설정
 			.logout()

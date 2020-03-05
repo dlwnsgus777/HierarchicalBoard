@@ -31,7 +31,8 @@
 					</div>
 				</div>
 			</form>
-<a sec:authorize="isAnonymous()" th:href="@{/user/info}">내정보</a>
+<a sec:authorize="hasRole('ROLE_USER')" th:href="@{/user/info}">내정보</a>
+<span sec:authentication="name"></span>
 			<div class="modal fade" id="accountUserModal" tabindex="-1"
 				role="dialog" aria-labelledby="accountUserLabel" aria-hidden="true">
 				<div class="modal-dialog" role="document">

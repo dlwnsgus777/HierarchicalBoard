@@ -37,8 +37,9 @@ public class UserSecurityService implements UserDetailsService  {
 	public UserDetails loadUserByUsername(String userId) throws UsernameNotFoundException {
 		// TODO Auto-generated method stub
 		System.out.println("???tq: " + userId);
-		Optional<Users> userEntitiy = usersRepository.findByUserId(userId);
-		Users user = userEntitiy.get();
+		Optional<UsersSaveRequestDto> userEntitiy = usersRepository.findByUserId(userId);
+		UsersSaveRequestDto user = new UsersSaveRequestDto();
+
 		ArrayList<GrantedAuthority> authorities = new ArrayList<>();
 		
 		authorities.add(new SimpleGrantedAuthority("ROLE_USER"));
