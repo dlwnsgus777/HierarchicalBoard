@@ -7,6 +7,7 @@
 <section layout:fragment="content">
 	<div class="container wrap__content">
 		<div class="col-md-6 col-md-offset-3">
+		<div sec:authorize="isAnonymous()">
 			<form th:action="@{/user/login}"class="form-horizontal" method="post" id="login-frm">
 				<div class="form-group">
 					<label for="inputEmail3" class="col-sm-2 control-label">아이디</label>
@@ -31,8 +32,12 @@
 					</div>
 				</div>
 			</form>
+			</div>
 <a sec:authorize="hasRole('ROLE_USER')" th:href="@{/user/info}">내정보</a>
+<a sec:authorize="hasRole('ROLE_USER')" th:href="@{/user/logout}">로그아웃</a>
 <span sec:authentication="name"></span>
+<span th:text="${errorMsg}"></span>
+
 			<div class="modal fade" id="accountUserModal" tabindex="-1"
 				role="dialog" aria-labelledby="accountUserLabel" aria-hidden="true">
 				<div class="modal-dialog" role="document">

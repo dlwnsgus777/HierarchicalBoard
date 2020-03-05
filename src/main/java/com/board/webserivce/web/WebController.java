@@ -31,5 +31,11 @@ public class WebController {
 		return "contents/error";
 	}
 	
+	@PostMapping("/")
+	public String initPost() {
+		System.out.println("??이건가");
+		return "contents/index";
+	}
+	
 
 }

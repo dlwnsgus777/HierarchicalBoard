@@ -2,7 +2,7 @@ package com.board.webserivce.dto.users;
 
 import com.board.webserivce.domain.users.Users;
 
-import groovy.transform.builder.Builder;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;

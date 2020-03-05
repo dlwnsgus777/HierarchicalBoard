@@ -9,6 +9,7 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.security.web.authentication.AuthenticationFailureHandler;
 import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 
 import com.board.webserivce.service.UserSecurityService;
@@ -20,6 +21,7 @@ import lombok.AllArgsConstructor;
 @AllArgsConstructor
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
 	private UserSecurityService userSecurityService;
+	private AuthenticationFailureHandler LoginFailHandler;
 	
 	@Bean
 	public PasswordEncoder passwordEncoder() {
@@ -42,8 +44,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 			.formLogin()
 			.loginPage("/")
 			.loginProcessingUrl("/user/login")
-			.defaultSuccessUrl("/hello", true)
-			.failureUrl("/login/error")
+			.defaultSuccessUrl("/", true)
+			.failureHandler(LoginFailHandler)
 			.permitAll()
 		.and()	// 로그아웃 설정
 			.logout()
