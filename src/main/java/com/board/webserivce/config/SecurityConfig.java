@@ -21,7 +21,6 @@ import lombok.AllArgsConstructor;
 @AllArgsConstructor
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
 	private UserSecurityService userSecurityService;
-	private AuthenticationFailureHandler LoginFailHandler;
 	
 	@Bean
 	public PasswordEncoder passwordEncoder() {
@@ -45,7 +44,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 			.loginPage("/")
 			.loginProcessingUrl("/user/login")
 			.defaultSuccessUrl("/", true)
-			.failureHandler(LoginFailHandler)
+			.failureHandler(loginFailHandler())
 			.permitAll()
 		.and()	// 로그아웃 설정
 			.logout()
@@ -59,5 +58,10 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 	@Override
 	public void configure(AuthenticationManagerBuilder auth) throws Exception {
 		auth.userDetailsService(userSecurityService).passwordEncoder(passwordEncoder());
+	}
+	
+	@Bean 
+	public AuthenticationFailureHandler loginFailHandler() {
+		return new LoginFailHandler();
 	}
 }

@@ -31,7 +31,7 @@ public class WebController {
 		return "contents/error";
 	}
 	
-	@PostMapping("/")
+	@PostMapping("/login/fail")
 	public String initPost() {
 		System.out.println("??이건가");
 		return "contents/index";

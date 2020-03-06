@@ -11,7 +11,6 @@ import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.web.authentication.AuthenticationFailureHandler;
 import org.springframework.stereotype.Component;
 
-@Configuration
 public class LoginFailHandler implements AuthenticationFailureHandler {
 
 	@Override
@@ -19,10 +18,9 @@ public class LoginFailHandler implements AuthenticationFailureHandler {
 			AuthenticationException exception) throws IOException, ServletException {
 		// TODO Auto-generated method stub
 		String errorMsg = exception.getMessage();
-		System.out.println("fail handle");
 		request.setAttribute("errorMsg", errorMsg);
 
-		request.getRequestDispatcher("/?error=true").forward(request, response);
+		request.getRequestDispatcher("/login/fail").forward(request, response);
 	}
 
 }
