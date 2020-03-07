@@ -19,10 +19,9 @@ public class WebController {
 		return "contents/index";
 	}
 	
-	@GetMapping("/hello")
+	@GetMapping("/board")
 	public String hello() {
-		System.out.println("??");
-		return "contents/hello";
+		return "contents/board";
 	}
 	
 	@GetMapping("/login/error")
@@ -33,9 +32,12 @@ public class WebController {
 	
 	@PostMapping("/login/fail")
 	public String initPost() {
-		System.out.println("??이건가");
 		return "contents/index";
 	}
 	
+	@GetMapping("/info")
+	public String info() {
+		return "contents/info";
+	}
 
 }

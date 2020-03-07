@@ -31,8 +31,8 @@ body {
 	</header>
 	<ul class="nav nav-tabs">
 		<li th:if="!${#request.isUserInRole('USER')}" role="presentation"><a href="/">main</a>
-		<li sec:authorize="hasRole('ROLE_USER')"  role="presentation"><a href="/hello">게시판</a>
-		<li sec:authorize="hasRole('ROLE_USER')" role="presentation"><a th:href="@{/user/logout}">내정보</a>
+		<li sec:authorize="hasRole('ROLE_USER')"  role="presentation"><a th:href="@{/board}">게시판</a>
+		<li sec:authorize="hasRole('ROLE_USER')" role="presentation"><a th:href="@{/info}">내정보</a>
 		<li sec:authorize="hasRole('ROLE_USER')" role="presentation"><a th:href="@{/user/logout}">로그아웃</a>
 	</ul>
 	<section layout:fragment="content"></section>
