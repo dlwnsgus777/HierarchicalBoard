@@ -5,16 +5,58 @@
 	layout:decorate="~{cmmn/layout}">
 
 <section layout:fragment="content">
-<div class="container wrap__content">
-<div class="row">
-  <div class="col-sm-6 col-md-8 col-md-offset-2">
-    <div class="thumbnail">
-      <div class="caption">
-        <h3><span sec:authentication="name"></span> 님 환영합니다.</h3>
-        <p><a href="#" class="btn btn-primary" role="button">Button</a> <a href="#" class="btn btn-default" role="button">Button</a></p>
-      </div>
-    </div>
-  </div>
-</div>
-</div>
+	<div class="container wrap__content">
+		<div class="row">
+			<div class="col-sm-6 col-md-8 col-md-offset-2">
+				<div class="thumbnail">
+					<div class="caption">
+						<h3>
+							<span sec:authentication="name"></span> 님 환영합니다.
+						</h3>
+						<div>
+							<button type="button" class="btn btn-primary" data-toggle="modal"
+								data-target="#accountUserModal">회원 정보 변경</button>
+							<a href="#" class="btn btn-default" role="button">회원탈퇴</a>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<div class="modal fade" id="accountUserModal" tabindex="-1"
+			role="dialog" aria-labelledby="accountUserLabel" aria-hidden="true">
+			<div class="modal-dialog" role="document">
+				<div class="modal-content">
+					<div class="modal-header">
+						<h5 class="modal-title" id="accountUserLabel">회원 가입</h5>
+						<button type="button" class="close" data-dismiss="modal"
+							aria-label="Close">
+							<span aria-hidden="true">&times;</span>
+						</button>
+					</div>
+					<div class="modal-body">
+						<form>
+							<div class="form-group">
+								<label for="user_name">이름</label> <input type="text"
+									class="form-control" id="userName" placeholder="이름을 입력하세요">
+							</div>
+							<div class="form-group">
+								<label for="user_id">아이디</label> <input type="text"
+									class="form-control" id="userId" placeholder="아이디를 입력하세요">
+							</div>
+							<div class="form-group">
+								<label for="password">패스워드</label> <input class="form-control"
+									id="initPassword" placeholder="비밀번호을 입력하세요"></input>
+							</div>
+						</form>
+					</div>
+					<div class="modal-footer">
+						<button type="button" class="btn btn-secondary"
+							data-dismiss="modal">취소</button>
+						<button type="button" class="btn btn-primary" id="btn-save">가입</button>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
 </section>
