@@ -22,5 +22,4 @@ public class LoginFailHandler implements AuthenticationFailureHandler {
 
 		request.getRequestDispatcher("/login/fail").forward(request, response);
 	}
-
 }

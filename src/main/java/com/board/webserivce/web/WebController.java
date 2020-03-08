@@ -12,7 +12,6 @@ import lombok.AllArgsConstructor;
 @Controller
 @AllArgsConstructor
 public class WebController {
-	private UserSecurityService userSecurityService;
 	
 	@GetMapping("/")
 	public String init() {
@@ -39,5 +38,4 @@ public class WebController {
 	public String info() {
 		return "contents/info";
 	}
-
 }
