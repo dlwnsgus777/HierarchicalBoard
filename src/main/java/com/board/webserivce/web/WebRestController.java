@@ -1,11 +1,13 @@
 package com.board.webserivce.web;
 
+import java.security.Principal;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Optional;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -31,6 +33,13 @@ public class WebRestController {
 		Map<String, Object> map = new HashMap<>();
 		
 		map.put("msg", "save");
+		return new ResponseEntity<>(map, HttpStatus.OK);
+	}
+	
+	@GetMapping("/user/userName")
+	public ResponseEntity<Map<String, Object>> getUserName(Principal principal) {
+		Map<String, Object> map = new HashMap<>();
+		map.put("userName", principal.getName());
 		return new ResponseEntity<>(map, HttpStatus.OK);
 	}
 }

@@ -6,6 +6,8 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 
+import org.hibernate.annotations.DynamicUpdate;
+
 import com.board.webserivce.domain.BaseTimeEntity;
 
 import lombok.AccessLevel;
@@ -16,6 +18,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Getter
 @Entity
+@DynamicUpdate
 public class Users extends BaseTimeEntity {
 	
 	@Id
@@ -28,12 +31,17 @@ public class Users extends BaseTimeEntity {
 	@Column(nullable = false)
 	private String password;
 	
+	@Column(unique = true)
 	private String userName;
 	
 	@Builder
 	public Users(String userId, String password, String userName) {
 		this.userId = userId;
 		this.password = password;
+		this.userName = userName;
+	}
+	
+	public void changeUserName(String userName) {
 		this.userName = userName;
 	}
 
