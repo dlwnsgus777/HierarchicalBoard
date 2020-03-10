@@ -44,5 +44,4 @@ public class Users extends BaseTimeEntity {
 	public void changeUserName(String userName) {
 		this.userName = userName;
 	}
-
 }

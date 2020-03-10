@@ -1,11 +1,13 @@
 package com.board.webserivce.service;
 
 import java.util.ArrayList;
-import java.util.List;
 import java.util.Optional;
 
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -43,5 +45,19 @@ public class UserSecurityService implements UserDetailsService  {
 		authorities.add(new SimpleGrantedAuthority("ROLE_USER"));
 		
 		return new User(findUser.getUserId(), findUser.getPassword(), authorities);
+	}
+	
+	@Transactional
+	public Users changeUserName(String userId, String changeName) {
+		Optional<Users> users = usersRepository.findByUserId(userId);
+		Users user = users.get();
+		user.changeUserName(changeName);
+		
+		return user;
+	}
+	
+	@Transactional
+	public void deleteUser(String userId) {
+		usersRepository.deleteByUserId(userId);
 	}
 }

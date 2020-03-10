@@ -44,7 +44,7 @@ public class WebController {
 		Users user = users.get();
 		
 		model.addAttribute("userName", user.getUserName());
-		
+
 		return "contents/info";
 	}
 }

@@ -16,7 +16,7 @@
 						<div>
 							<button type="button" class="btn btn-primary" data-toggle="modal"
 								data-target="#chageUserModal" id="btn-change-modal">회원 정보 변경</button>
-							<a href="#" class="btn btn-default" role="button">회원탈퇴</a>
+							<button class="btn btn-default" role="button" id="btn-delete">회원탈퇴</button>
 						</div>
 					</div>
 				</div>
@@ -38,7 +38,7 @@
 						<form id="changeName-frm">
 							<div class="form-group">
 								<label for="user_name">이름</label> <input type="text"
-									class="form-control" id="userName" th:placeholder="${userName}">
+									class="form-control" id="changeName" th:placeholder="${userName}">
 							</div>
 						</form>
 					</div>
@@ -54,14 +54,20 @@
 	<script>
 	let userInfo = {
 		init: function() {
-			//this.clickChageBtn();
-			this.test();
+			this.clickChageName();
+			this.clickDeleteUser();
+		},
+		csrf: {
+			token: $("meta[name='_csrf']").attr("content"),
+			header: $("meta[name='_csrf_header']").attr("content")
 		},
 		clickChageName: function() {
+			let $this = this;
 			$("#btn-change").click(function() {
 				let data = {
-					userName: $("#userName").val()
+					changeName: $("#changeName").val()
 				}
+				console.log(data)
 		        $.ajax({
 		            type: 'POST',
 		            url: '/user/changeName',
@@ -72,10 +78,31 @@
 	    				xhr.setRequestHeader($this.csrf.header, $this.csrf.token);
 	    			}
 		        }).done(function(result) {
-		        	if (result.msg === "save") {
+		        	if (result.msg === "success") {
 			        	alert("변경에 성공했습니다.");
 			        	location.reload();
 		        	}
+		        }).fail(function (error) {
+		            console.log(error);
+		        });
+			})
+		},
+		clickDeleteUser: function() {
+			let $this = this;
+			$("#btn-delete").click(function() {
+		        $.ajax({
+		            type: 'DELETE',
+		            url: '/user',
+		            dataType: 'json',
+		            contentType:'application/json; charset=utf-8',
+		            //data: JSON.stringify(data),
+		            beforeSend: function(xhr) {
+	    				xhr.setRequestHeader($this.csrf.header, $this.csrf.token);
+	    			}
+		        }).done(function(result) {
+		        	console.log(result);
+			        alert("삭제에 성공했습니다.");
+			        location.href="/user/logout";
 		        }).fail(function (error) {
 		            console.log(error);
 		        });
