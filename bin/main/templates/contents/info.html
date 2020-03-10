@@ -94,8 +94,7 @@
 		            type: 'DELETE',
 		            url: '/user',
 		            dataType: 'json',
-		            contentType:'application/json; charset=utf-8',
-		            //data: JSON.stringify(data),
+		            contentType:'application/json; charset=utf-8',		        
 		            beforeSend: function(xhr) {
 	    				xhr.setRequestHeader($this.csrf.header, $this.csrf.token);
 	    			}

@@ -12,7 +12,6 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.board.webserivce.domain.users.Users;
 import com.board.webserivce.dto.users.UsersSaveRequestDto;
 import com.board.webserivce.service.UserSecurityService;
 
@@ -45,10 +44,9 @@ public class WebRestController {
 		String changeName = map.get("changeName").toString();
 		String userId = principal.getName();
 		
-		Users user = userSecurityService.changeUserName(userId, changeName);
+		userSecurityService.changeUserName(userId, changeName);
 		
 		Map<String, Object> responseMap = new HashMap<>();
-		responseMap.put("userName", user.getUserName());
 		responseMap.put("msg", "success");
 		
 		return new ResponseEntity<>(responseMap, HttpStatus.OK);

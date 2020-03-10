@@ -3,11 +3,8 @@ package com.board.webserivce.service;
 import java.util.ArrayList;
 import java.util.Optional;
 
-import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
-import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -48,12 +45,10 @@ public class UserSecurityService implements UserDetailsService  {
 	}
 	
 	@Transactional
-	public Users changeUserName(String userId, String changeName) {
+	public void changeUserName(String userId, String changeName) {
 		Optional<Users> users = usersRepository.findByUserId(userId);
 		Users user = users.get();
 		user.changeUserName(changeName);
-		
-		return user;
 	}
 	
 	@Transactional
