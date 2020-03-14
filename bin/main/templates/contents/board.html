@@ -12,38 +12,34 @@
 <table class="table table-striped table-bordered table-hover">
         <thead>
             <tr>
-                <th>#</th>
-                <th>컬럼2</th>
-                <th>컬럼3</th>
-                <th>컬럼4</th>
-                <th>컬럼5</th>
+                <th style="width: 7%">글번호</th>
+                <th scope="col">제목</th>
+                <th style="width: 5%">작성자</th>
+                <th style="width: 7%">날짜</th>
             </tr>
         </thead>
         <tbody>
             <tr>
-                <td>1</td>
-                <td>데이터2</td>
-                <td>데이터3</td>
-                <td>데이터4</td>
-                <td>데이터5</td>
+                <td class="text-center" scope="row" data-id="1">글번호1</td>
+                <td class="text-overflow" style="max-width: 300px;">글제목1</td>
+                <td class="text-overflow" style="max-width: 100px;">작성자1</td>
+                <td class="text-center">날짜1</td>
             </tr>
             <tr>
-                <td>2</td>
-                <td>데이터2</td>
-                <td>데이터3</td>
-                <td>데이터4</td>
-                <td>데이터5</td>
+                <td class="text-center" scope="row" data-id="1">글번호1</td>
+                <td class="text-overflow" style="max-width: 300px;">글제목1</td>
+                <td class="text-overflow" style="max-width: 100px;">작성자1</td>
+                <td class="text-center">날짜1</td>
             </tr>
             <tr>
-                <td>3</td>
-                <td>데이터2</td>
-                <td>데이터3</td>
-                <td>데이터4</td>
-                <td>데이터5</td>
+                <td class="text-center" scope="row" data-id="1">글번호1</td>
+                <td class="text-overflow" style="max-width: 300px;">글제목1</td>
+                <td class="text-overflow" style="max-width: 100px;">작성자1</td>
+                <td class="text-center">날짜1</td>
             </tr>
         </tbody>
     </table>
-</div>
+
 <div align="right" class="col-md-12 left">
         <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#savePostsModal">글 등록</button>
     </div>
@@ -57,6 +53,7 @@
     <li class="page-item"><a class="page-link" href="#">Next</a></li>
   </ul>
 </nav>
+</div>
 </div>
     <div class="modal fade" id="savePostsModal" tabindex="-1" role="dialog" aria-labelledby="savePostsLabel" aria-hidden="true">
         <div class="modal-dialog" role="document">
@@ -79,7 +76,7 @@
                         </div>
                         <div class="form-group">
                             <label for="content"> 내용 </label>
-                            <textarea class="form-control" id="content" placeholder="내용을 입력하세요"></textarea>
+                            <textarea class="form-control" id="content" placeholder="내용을 입력하세요"  style="resize: none; height: 300px;"></textarea>
                         </div>
                     </form>
                 </div>
@@ -90,6 +87,16 @@
             </div>
         </div>
     </div>
+    <script>
+    	$(function() {
+    		$(".table tbody tr").click(function() {
+    			console.log(this);
+    			console.log(this.children)
+    			console.log($(this).children("td").data("id"))
+    			
+    		})
+    	})
+    </script>
 </section>
 
 

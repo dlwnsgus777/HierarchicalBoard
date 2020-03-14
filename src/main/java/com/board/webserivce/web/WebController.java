@@ -6,6 +6,7 @@ import java.util.Optional;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 
 import com.board.webserivce.domain.users.Users;
@@ -47,4 +48,12 @@ public class WebController {
 
 		return "contents/info";
 	}
+	
+	@GetMapping("/board/{id}")
+	public String getBoardDetail(@PathVariable int id, ModelMap model) {
+		
+		model.addAttribute("path", id);
+		return "contents/boardDetail";
+	}
+	
 }
