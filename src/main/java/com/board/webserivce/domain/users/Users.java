@@ -1,14 +1,19 @@
 package com.board.webserivce.domain.users;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 
 import org.hibernate.annotations.DynamicUpdate;
 
 import com.board.webserivce.domain.BaseTimeEntity;
+import com.board.webserivce.domain.boards.Boards;
 
 import lombok.AccessLevel;
 import lombok.Builder;
@@ -20,7 +25,7 @@ import lombok.NoArgsConstructor;
 @Entity
 @DynamicUpdate
 public class Users extends BaseTimeEntity {
-	
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
@@ -33,6 +38,9 @@ public class Users extends BaseTimeEntity {
 	
 	@Column(unique = true)
 	private String userName;
+	
+	@OneToMany(mappedBy = "author_id")
+	private List<Boards> boards = new ArrayList<>();
 	
 	@Builder
 	public Users(String userId, String password, String userName) {
