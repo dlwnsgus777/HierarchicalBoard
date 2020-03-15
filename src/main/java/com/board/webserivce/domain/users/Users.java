@@ -3,11 +3,13 @@ package com.board.webserivce.domain.users;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
 
 import org.hibernate.annotations.DynamicUpdate;
@@ -39,7 +41,8 @@ public class Users extends BaseTimeEntity {
 	@Column(unique = true)
 	private String userName;
 	
-	@OneToMany(mappedBy = "author_id")
+	@OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
+	@JoinColumn(name = "author_id")
 	private List<Boards> boards = new ArrayList<>();
 	
 	@Builder
@@ -51,5 +54,13 @@ public class Users extends BaseTimeEntity {
 	
 	public void changeUserName(String userName) {
 		this.userName = userName;
+	}
+	
+	public void addBoard(Boards board) {
+		boards.add(board);
+	}
+	
+	public void removeBoard(Boards board) {
+		boards.remove(board);
 	}
 }
