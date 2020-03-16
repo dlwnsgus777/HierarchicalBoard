@@ -13,6 +13,5 @@ public class BoardService {
 	public void del(Boards bb) {
 		System.out.println("tq" + bb.getId());
 		bo.deleteById(bb.getId());
-		
 	}
 }

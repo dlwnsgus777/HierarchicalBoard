@@ -4,6 +4,9 @@ import java.security.Principal;
 import java.util.List;
 import java.util.Optional;
 
+import javax.persistence.EntityManager;
+import javax.transaction.Transactional;
+
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -65,28 +68,34 @@ public class WebController {
 	public String test(Principal prin) {
 		Optional<Users> users = userRepository.findByUserId(prin.getName());
 		Users user = users.get();
-		Boards bo = Boards.builder().title("test").content("test content").depth(0).p_id(null).author_id(user.getId()).build();
+		Boards bo = Boards.builder().title("tq").content("test content").depth(0).p_id(null).author_id(user.getId()).build();
 		bb.save(bo);
-		user.addBoard(bb.findAll().get(0));
+		//user.addBoard(bb.findAll().get(0));
 		
 		return "contents/info";
 	}
-	
+
 	@GetMapping("/testdel")
 	public String testdel(Principal prin) {
 		Optional<Users> users = userRepository.findByUserId(prin.getName());
 		Users user = users.get();
 		System.out.println("-----------------------------test");
+		
 		List<Boards> bo = user.getBoards();
 		for(Boards bbb : bo) {
 			System.out.println(bbb.getTitle());
 		}
-		bo.remove(bo.get(0));
-		System.out.println("-----------------------------test");
-		List<Boards> boc = user.getBoards();
-		for(Boards bbb : boc) {
-			System.out.println(bbb.getTitle());
-		}
+		System.out.println("------------------before del");
+		System.out.println(bo.get(0).getTitle());
+		bb.delete(bo.get(0));
+		System.out.println("------------¹¹²¿");
+//		bb.delete(bo.get(0));
+//		bo.remove(bo.get(0));
+//		System.out.println("-----------------------------test");
+//		List<Boards> boc = user.getBoards();
+//		for(Boards bbb : boc) {
+//			System.out.println(bbb.getTitle());
+//		}
 		return "contents/info";
 	}
 	

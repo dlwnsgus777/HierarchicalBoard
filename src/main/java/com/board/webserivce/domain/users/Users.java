@@ -41,7 +41,7 @@ public class Users extends BaseTimeEntity {
 	@Column(unique = true)
 	private String userName;
 	
-	@OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
+	@OneToMany// (cascade = CascadeType.ALL, orphanRemoval = true)
 	@JoinColumn(name = "author_id")
 	private List<Boards> boards = new ArrayList<>();
 	
