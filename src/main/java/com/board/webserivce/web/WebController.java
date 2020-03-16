@@ -68,7 +68,7 @@ public class WebController {
 	public String test(Principal prin) {
 		Optional<Users> users = userRepository.findByUserId(prin.getName());
 		Users user = users.get();
-		Boards bo = Boards.builder().title("tq").content("test content").depth(0).p_id(null).author_id(user.getId()).build();
+		Boards bo = Boards.builder().title("tq").content("test content").depth(0).parentId(null).authorId(user.getId()).build();
 		bb.save(bo);
 		//user.addBoard(bb.findAll().get(0));
 		
@@ -88,7 +88,7 @@ public class WebController {
 		System.out.println("------------------before del");
 		System.out.println(bo.get(0).getTitle());
 		bb.delete(bo.get(0));
-		System.out.println("------------¹¹²¿");
+		System.out.println("------------ï¿½ï¿½ï¿½ï¿½");
 //		bb.delete(bo.get(0));
 //		bo.remove(bo.get(0));
 //		System.out.println("-----------------------------test");
