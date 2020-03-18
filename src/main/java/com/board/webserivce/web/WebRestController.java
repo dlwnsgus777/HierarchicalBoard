@@ -59,4 +59,12 @@ public class WebRestController {
 		Map<String, Object> responseMap = new HashMap<>();
 		return new ResponseEntity<>(responseMap, HttpStatus.OK);
 	}
+	
+	@PostMapping("/test")
+	public ResponseEntity<Map<String, Object>> test(Principal principal) {
+		String userId = principal.getName();
+		System.out.println(userId);
+		Map<String, Object> responseMap = new HashMap<>();
+		return new ResponseEntity<>(responseMap, HttpStatus.OK);
+	}
 }

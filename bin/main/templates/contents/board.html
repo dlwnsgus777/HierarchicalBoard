@@ -82,13 +82,26 @@
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">취소</button>
-                    <button type="button" class="btn btn-primary" id="btn-save">등록</button>
+                    <button type="button" class="btn btn-primary" id="btn-write">등록</button>
                 </div>
             </div>
         </div>
     </div>
     <script>
+    	let board = {
+    		init: function() {
+    			this.clickWriteBtn();
+    		},
+    		clickWriteBtn: function() {
+    			$("#btn-write").click(function() {
+    				$("#write-frm").attr("action", "/test");
+    				$("#write-frm").attr("method", "GET");
+    				$("#write-frm").submit();
+    			})
+    		}
+    	}
     	$(function() {
+    		board.init()
     		$(".table tbody tr").click(function() {
     			console.log(this);
     			console.log(this.children)
