@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.board.webserivce.dto.boards.BoardsSaveRequestDto;
 import com.board.webserivce.dto.users.UsersSaveRequestDto;
+import com.board.webserivce.service.BoardService;
 import com.board.webserivce.service.UserSecurityService;
 
 import lombok.AllArgsConstructor;
@@ -22,6 +23,7 @@ import lombok.AllArgsConstructor;
 @AllArgsConstructor
 public class WebRestController {
 	private UserSecurityService userSecurityService;
+	private BoardService boardService;
 	
 	@PostMapping("/users/signup")
 	public ResponseEntity<Map<String, Object>> saveUsers(@RequestBody UsersSaveRequestDto dto) {
@@ -61,12 +63,10 @@ public class WebRestController {
 		return new ResponseEntity<>(responseMap, HttpStatus.OK);
 	}
 	
-	@PostMapping("/test")
+	@PostMapping("/post/save")
 	public ResponseEntity<Map<String, Object>> test(BoardsSaveRequestDto boardDto, Principal principal) {
-		String userId = principal.getName();
-		System.out.println(userId);
+		boardService.savePost(boardDto, principal);
 		Map<String, Object> responseMap = new HashMap<>();
-		responseMap.put("실험좀", boardDto);
 		return new ResponseEntity<>(responseMap, HttpStatus.OK);
 	}
 }
