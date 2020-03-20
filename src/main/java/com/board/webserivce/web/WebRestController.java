@@ -64,9 +64,10 @@ public class WebRestController {
 	}
 	
 	@PostMapping("/post/save")
-	public ResponseEntity<Map<String, Object>> test(BoardsSaveRequestDto boardDto, Principal principal) {
+	public ResponseEntity<Map<String, Object>> test(@RequestBody BoardsSaveRequestDto boardDto, Principal principal) {
 		boardService.savePost(boardDto, principal);
 		Map<String, Object> responseMap = new HashMap<>();
+		responseMap.put("msg", "save");
 		return new ResponseEntity<>(responseMap, HttpStatus.OK);
 	}
 }

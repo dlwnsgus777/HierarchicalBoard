@@ -92,9 +92,38 @@
     		init: function() {
     			this.clickWriteBtn();
     		},
+    		csrf: {
+    			token: $("meta[name='_csrf']").attr("content"),
+    			header: $("meta[name='_csrf_header']").attr("content")
+    		},
     		clickWriteBtn: function() {
+    			let $this = this;
     			$("#btn-write").click(function() {
-    				$("#write-frm").submit();
+    				let post = {
+    					title : $("#title").val(),
+    					content : $("#content").val(),
+    				}
+    				console.log(post)
+    		        $.ajax({
+			            type: 'POST',
+			            url: '/post/save',
+			            dataType: 'json',
+			            contentType:'application/json; charset=utf-8',
+			            data: JSON.stringify(post),
+			            beforeSend: function(xhr) {
+		    				xhr.setRequestHeader($this.csrf.header, $this.csrf.token);
+		    			}
+			        }).done(function(result) {
+			        	if (result.msg === "save") {
+				        	alert("게시글이 등록되었습니다.");
+				        	location.reload();
+			        	} else {
+			        		alert("게시글 등록에 실패했습니다. 다시 작성해주세요");
+			        		location.reload();
+			        	}
+			        }).fail(function (error) {
+			            console.log(error);
+			        });
     			})
     		}
     	}
