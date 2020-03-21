@@ -43,7 +43,7 @@ public class Boards extends BaseTimeEntity {
 	
 	@ColumnDefault("null")
 	private Long parentId;
-	
+
 	private Long authorId;
 	
 	@Builder

@@ -47,5 +47,5 @@ public interface BoardsRepository extends JpaRepository<Boards, Long> {
 			"join users as u\r\n" + 
 			"on b.author_id = u.id\r\n" + 
 			"ORDER BY lvl",nativeQuery = true)
-	List<Boards> findAllBoard();
+	List<Object[]> findAllBoard();
 }
