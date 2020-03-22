@@ -24,8 +24,8 @@ public class BoardService {
 	public void savePost(BoardsSaveRequestDto boardDto, Principal principal) {
 		String userId = principal.getName();
 		Users user = usersRepository.findByUserId(userId).get();
-
-		boardDto.setAuthorId(user.getId());
+		
+		boardDto.setAuthor(user);
 		boardRepository.save(boardDto.toEntity());
 	}
 }

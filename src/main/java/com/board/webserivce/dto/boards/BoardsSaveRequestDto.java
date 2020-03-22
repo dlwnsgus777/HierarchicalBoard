@@ -1,6 +1,7 @@
 package com.board.webserivce.dto.boards;
 
 import com.board.webserivce.domain.boards.Boards;
+import com.board.webserivce.domain.users.Users;
 
 import lombok.Builder;
 import lombok.Getter;
@@ -13,7 +14,7 @@ import lombok.Setter;
 public class BoardsSaveRequestDto {
 	private String title;
 	private String content;
-	private Long authorId;
+	private Users author;
 	private int depth;
 	private Long parentId;
 	
@@ -21,18 +22,18 @@ public class BoardsSaveRequestDto {
 		return Boards.builder()
 				.title(title)
 				.content(content)
-				.authorId(authorId)
+				.author(author)
 				.depth(depth)
 				.parentId(parentId)
 				.build();
 	}
 	
 	@Builder
-	public BoardsSaveRequestDto(String content, String title, Long parentId, int depth, Long authorId) {
+	public BoardsSaveRequestDto(String content, String title, Long parentId, int depth, Users author) {
 		this.title = title;
 		this.content = content;
 		this.parentId = parentId;
 		this.depth = depth;
-		this.authorId = authorId;
+		this.author = author;
 	}
 }

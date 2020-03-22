@@ -77,7 +77,7 @@ public class WebRestController {
 	
 	@GetMapping("/test")
 	public ResponseEntity<Map<String, Object>> test(Principal prin, ModelMap model) {
-		List<Object[]> boards = bb.findAllBoard();
+		List<Boards> boards = bb.findAllBoard();
 //		Users user = users.get();
 //		Boards bo = Boards.builder().title("tq").content("test content").depth(0).parentId(null).authorId(user.getId()).build();
 //		bb.save(bo);

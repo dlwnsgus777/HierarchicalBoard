@@ -43,15 +43,17 @@ public class Boards extends BaseTimeEntity {
 	
 	@ColumnDefault("null")
 	private Long parentId;
-
-	private Long authorId;
+	
+	@ManyToOne
+	@JoinColumn(name = "author_id")
+	private Users author;
 	
 	@Builder
-	public Boards(String content, String title, Long parentId, int depth, Long authorId) {
+	public Boards(String content, String title, Long parentId, int depth, Users author) {
 		this.title = title;
 		this.content = content;
 		this.parentId = parentId;
 		this.depth = depth;
-		this.authorId = authorId;
+		this.author = author;
 	}
 }
