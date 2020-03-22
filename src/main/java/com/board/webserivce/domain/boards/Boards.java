@@ -56,4 +56,9 @@ public class Boards extends BaseTimeEntity {
 		this.depth = depth;
 		this.author = author;
 	}
+	
+	public void deleteBoard() {
+		this.title = "삭제 되었습니다.";
+		this.author = null;
+	}
 }

@@ -1,6 +1,7 @@
 package com.board.webserivce.service;
 
 import java.security.Principal;
+import java.util.List;
 import java.util.Optional;
 
 import org.springframework.stereotype.Service;
@@ -27,5 +28,13 @@ public class BoardService {
 		
 		boardDto.setAuthor(user);
 		boardRepository.save(boardDto.toEntity());
+	}
+	
+	@Transactional
+	public void deletePostAfterDelUser(Long userId) {
+		List<Boards> boards = boardRepository.findByAuthorId(userId);
+		for(Boards board: boards) {
+			board.deleteBoard();
+		}
 	}
 }

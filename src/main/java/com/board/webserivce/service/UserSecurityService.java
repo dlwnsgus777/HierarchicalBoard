@@ -1,6 +1,7 @@
 package com.board.webserivce.service;
 
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
 
 import org.springframework.security.core.GrantedAuthority;
@@ -13,6 +14,8 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.board.webserivce.domain.boards.Boards;
+import com.board.webserivce.domain.boards.BoardsRepository;
 import com.board.webserivce.domain.users.Users;
 import com.board.webserivce.domain.users.UsersRepository;
 import com.board.webserivce.dto.users.UsersSaveRequestDto;
@@ -23,6 +26,7 @@ import lombok.AllArgsConstructor;
 @AllArgsConstructor
 public class UserSecurityService implements UserDetailsService  {
 	private UsersRepository usersRepository;
+	private BoardService boardService;
 	
 	@Transactional
 	public Long accountUser(UsersSaveRequestDto saveDto) {
@@ -53,6 +57,8 @@ public class UserSecurityService implements UserDetailsService  {
 	
 	@Transactional
 	public void deleteUser(String userId) {
+		Optional<Users> user = usersRepository.findByUserId(userId);
+		boardService.deletePostAfterDelUser(user.get().getId());
 		usersRepository.deleteByUserId(userId);
 	}
 }

@@ -16,6 +16,7 @@ import org.hibernate.annotations.DynamicUpdate;
 
 import com.board.webserivce.domain.BaseTimeEntity;
 import com.board.webserivce.domain.boards.Boards;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import lombok.AccessLevel;
 import lombok.Builder;
@@ -35,6 +36,7 @@ public class Users extends BaseTimeEntity {
 	@Column(length = 20,unique = true, nullable = false)
 	private String userId;
 	
+	@JsonIgnore
 	@Column(nullable = false)
 	private String password;
 	
