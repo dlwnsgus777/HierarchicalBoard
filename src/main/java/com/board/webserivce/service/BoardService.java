@@ -1,9 +1,12 @@
 package com.board.webserivce.service;
 
+import java.lang.reflect.Type;
 import java.security.Principal;
 import java.util.List;
 import java.util.Optional;
 
+import org.modelmapper.ModelMapper;
+import org.modelmapper.TypeToken;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -11,6 +14,7 @@ import com.board.webserivce.domain.boards.Boards;
 import com.board.webserivce.domain.boards.BoardsRepository;
 import com.board.webserivce.domain.users.Users;
 import com.board.webserivce.domain.users.UsersRepository;
+import com.board.webserivce.dto.boards.BoardsFindResponseDto;
 import com.board.webserivce.dto.boards.BoardsSaveRequestDto;
 
 import lombok.AllArgsConstructor;
@@ -36,5 +40,18 @@ public class BoardService {
 		for(Boards board: boards) {
 			board.deleteBoard();
 		}
+	}
+	
+	@Transactional
+	public List<BoardsFindResponseDto> findAllPost() {
+		ModelMapper modelmapper = new ModelMapper();
+		Type listType = new TypeToken<List<BoardsFindResponseDto>>(){}.getType();
+		List<Boards> boards = boardRepository.findAllBoard();
+		for(Boards board: boards) {
+			System.out.println(board.getAuthor().getUserId());
+		}
+		List<BoardsFindResponseDto> boardsDto = modelmapper.map(boards, listType);
+
+		return boardsDto;
 	}
 }

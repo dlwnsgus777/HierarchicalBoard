@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.board.webserivce.domain.boards.Boards;
 import com.board.webserivce.domain.boards.BoardsRepository;
+import com.board.webserivce.dto.boards.BoardsFindResponseDto;
 import com.board.webserivce.dto.boards.BoardsSaveRequestDto;
 import com.board.webserivce.dto.users.UsersSaveRequestDto;
 import com.board.webserivce.service.BoardService;
@@ -77,6 +78,19 @@ public class WebRestController {
 	
 	@GetMapping("/test")
 	public ResponseEntity<Map<String, Object>> test(Principal prin, ModelMap model) {
+		List<Boards> boardss = bb.findAllBoard();
+//		Users user = users.get();
+//		Boards bo = Boards.builder().title("tq").content("test content").depth(0).parentId(null).authorId(user.getId()).build();
+//		bb.save(bo);
+//		user.addBoard(bb.findAll().get(0));
+		List<BoardsFindResponseDto> boards = boardService.findAllPost();
+		model.addAttribute("test", boards);
+		model.addAttribute("test2", boardss);
+		return  new ResponseEntity<>(model, HttpStatus.OK);
+	}
+	
+	@GetMapping("/user/post/test")
+	public ResponseEntity<Map<String, Object>> getPost(Principal prin, ModelMap model) {
 		List<Boards> boards = bb.findAllBoard();
 //		Users user = users.get();
 //		Boards bo = Boards.builder().title("tq").content("test content").depth(0).parentId(null).authorId(user.getId()).build();
