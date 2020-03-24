@@ -1,5 +1,8 @@
 package com.board.webserivce.domain.boards;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -7,12 +10,14 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 
 import org.hibernate.annotations.ColumnDefault;
 import org.hibernate.annotations.DynamicUpdate;
 import org.hibernate.annotations.ManyToAny;
 
 import com.board.webserivce.domain.BaseTimeEntity;
+import com.board.webserivce.domain.images.Images;
 import com.board.webserivce.domain.users.Users;
 import com.board.webserivce.domain.users.Users.UsersBuilder;
 
@@ -47,6 +52,10 @@ public class Boards extends BaseTimeEntity {
 	@ManyToOne
 	@JoinColumn(name = "author_id")
 	private Users author;
+	
+	@OneToMany(orphanRemoval = true)
+	@JoinColumn(name = "boardId")
+	private List<Images> images = new ArrayList<>();
 	
 	@Builder
 	public Boards(String content, String title, Long parentId, int depth, Users author) {

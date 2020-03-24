@@ -1,5 +1,9 @@
 package com.board.webserivce.dto.boards;
 
+import java.util.List;
+
+import org.springframework.web.multipart.MultipartFile;
+
 import com.board.webserivce.domain.boards.Boards;
 import com.board.webserivce.domain.users.Users;
 
@@ -7,7 +11,9 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import lombok.ToString;
 
+@ToString
 @Setter
 @Getter
 @NoArgsConstructor
@@ -17,6 +23,7 @@ public class BoardsSaveRequestDto {
 	private Users author;
 	private int depth;
 	private Long parentId;
+	private MultipartFile images;
 	
 	public Boards toEntity() {
 		return Boards.builder()
@@ -36,4 +43,5 @@ public class BoardsSaveRequestDto {
 		this.depth = depth;
 		this.author = author;
 	}
+	
 }

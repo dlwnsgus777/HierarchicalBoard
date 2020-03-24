@@ -5,6 +5,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import javax.servlet.http.HttpServletRequest;
+
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.ui.ModelMap;
@@ -12,6 +14,7 @@ import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.board.webserivce.domain.boards.Boards;
@@ -68,9 +71,10 @@ public class WebRestController {
 		return new ResponseEntity<>(responseMap, HttpStatus.OK);
 	}
 	
-	@PostMapping("/post/save")
+	@PostMapping("/post/save")//@RequestBody BoardsSaveRequestDto boardDto
 	public ResponseEntity<Map<String, Object>> test(@RequestBody BoardsSaveRequestDto boardDto, Principal principal) {
-		boardService.savePost(boardDto, principal);
+		//boardService.savePost(boardDto, principal);
+		System.out.println(boardDto.toString());
 		Map<String, Object> responseMap = new HashMap<>();
 		responseMap.put("msg", "save");
 		return new ResponseEntity<>(responseMap, HttpStatus.OK);

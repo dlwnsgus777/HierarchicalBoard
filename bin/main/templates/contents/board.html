@@ -65,14 +65,14 @@
                     </button>
                 </div>
                 <div class="modal-body">
-                    <form th:action="@{/post/save}" method="post" id="write-frm">
+                    <form enctype="multipart/form-data" th:action="@{/post/save}" method="post" id="write-frm">
                         <div class="form-group">
                             <label for="title">제목</label>
                             <input type="text" class="form-control" name="title" id="title" placeholder="제목을 입력하세요">
                         </div>
                         <div class="form-group">
-                            <label for="author"> 작성자 </label>
-                            <input type="text" class="form-control" id="file" placeholder="파일을 업로드 할 곳">
+                            <label for="author"> 이미지 </label>
+                            <input type="file" class="form-control" name="images" id="images" placeholder="이미지 첨부" multiple>
                         </div>
                         <div class="form-group">
                             <label for="content"> 내용 </label>
@@ -96,19 +96,27 @@
     			token: $("meta[name='_csrf']").attr("content"),
     			header: $("meta[name='_csrf_header']").attr("content")
     		},
+    		cheackImageFiles: function() {
+    			let imageInput = $('#images')[0];
+    			let files = imageInput.files;
+    			console.log(files)
+    		},
     		clickWriteBtn: function() {
     			let $this = this;
     			$("#btn-write").click(function() {
+    				$this.cheackImageFiles();
     				let post = {
     					title : $("#title").val(),
     					content : $("#content").val(),
+    					images:  $('#images')[0].files[0]
     				}
-    				console.log(post)
-    		        $.ajax({
+     		        $.ajax({
 			            type: 'POST',
 			            url: '/post/save',
 			            dataType: 'json',
-			            contentType:'application/json; charset=utf-8',
+			            contentType: 'application/json; charset=utf-8',
+			            processData: false,
+			            enctype: 'multipart/form-data',
 			            data: JSON.stringify(post),
 			            beforeSend: function(xhr) {
 		    				xhr.setRequestHeader($this.csrf.header, $this.csrf.token);
@@ -123,7 +131,7 @@
 			        	}
 			        }).fail(function (error) {
 			            console.log(error);
-			        });
+			        }); 
     			})
     		}
     	}
