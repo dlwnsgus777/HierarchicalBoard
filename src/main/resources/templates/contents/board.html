@@ -110,14 +110,15 @@
     					content : $("#content").val(),
     					images:  $('#images')[0].files[0]
     				}
+    				console.log(post)
      		        $.ajax({
 			            type: 'POST',
 			            url: '/post/save',
 			            dataType: 'json',
-			            contentType: 'application/json; charset=utf-8',
+			            contentType: 'multipart/form-data',//'application/json; charset=utf-8',
 			            processData: false,
 			            enctype: 'multipart/form-data',
-			            data: JSON.stringify(post),
+			            data: post,//JSON.stringify(post),
 			            beforeSend: function(xhr) {
 		    				xhr.setRequestHeader($this.csrf.header, $this.csrf.token);
 		    			}
