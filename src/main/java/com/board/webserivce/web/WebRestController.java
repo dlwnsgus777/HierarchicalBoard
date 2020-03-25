@@ -73,10 +73,8 @@ public class WebRestController {
 	}
 	
 	@PostMapping("/post/save")//@RequestParam("images") List<MultipartFile> images,
-	public ResponseEntity<Map<String, Object>> test(BoardsSaveRequestDto boardDto, 
-
-			Principal principal) {
-		//boardService.savePost(boardDto, principal);
+	public ResponseEntity<Map<String, Object>> test(BoardsSaveRequestDto boardDto, Principal principal) {
+		boardService.savePost(boardDto, principal);
 		System.out.println(boardDto.toString());
 		System.out.println(boardDto.getImages().get(0).getSize());
 		System.out.println(boardDto.getImages().get(0).getOriginalFilename());

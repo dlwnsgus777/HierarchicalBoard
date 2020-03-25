@@ -26,12 +26,14 @@ public class BoardService {
 	private UsersRepository usersRepository;
 	
 	@Transactional
-	public void savePost(BoardsSaveRequestDto boardDto, Principal principal) {
+	public Long savePost(BoardsSaveRequestDto boardDto, Principal principal) {
 		String userId = principal.getName();
 		Users user = usersRepository.findByUserId(userId).get();
 		
 		boardDto.setAuthor(user);
-		boardRepository.save(boardDto.toEntity());
+		Boards board = boardRepository.save(boardDto.toEntity());
+		
+		return board.getId();
 	}
 	
 	@Transactional
