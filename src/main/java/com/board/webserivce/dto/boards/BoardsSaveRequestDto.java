@@ -23,7 +23,7 @@ public class BoardsSaveRequestDto {
 	private Users author;
 	private int depth;
 	private Long parentId;
-	//private List<MultipartFile> images;
+	private List<MultipartFile> images;
 	
 	public Boards toEntity() {
 		return Boards.builder()

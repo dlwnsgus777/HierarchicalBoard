@@ -110,19 +110,17 @@
     					content : $("#content").val(),
     					images: $('#images')[0].files
     				}
-    				let test = new FormData();
-    				test.append("title", "tq")
-    				test.append("images", $('#images')[0].files)
+    				let test = new FormData($("#write-frm")[0]);
     				console.log(test)
     				console.log(post)
      		        $.ajax({
 			            type: 'POST',
 			            url: '/post/save',
 			            dataType: 'json',
-			            //contentType: false,//'application/json; charset=utf-8',
+			            contentType: false,//'application/json; charset=utf-8',
 			            processData: false,
 			            enctype: 'multipart/form-data',
-			            data: post,//post,//JSON.stringify(post),
+			            data: test,//post,//JSON.stringify(post),
 			            beforeSend: function(xhr) {
 		    				xhr.setRequestHeader($this.csrf.header, $this.csrf.token);
 		    			}
