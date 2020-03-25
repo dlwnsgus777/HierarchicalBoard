@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.board.webserivce.domain.boards.Boards;
 import com.board.webserivce.domain.boards.BoardsRepository;
@@ -71,10 +72,13 @@ public class WebRestController {
 		return new ResponseEntity<>(responseMap, HttpStatus.OK);
 	}
 	
-	@PostMapping("/post/save")//@RequestBody BoardsSaveRequestDto boardDto
-	public ResponseEntity<Map<String, Object>> test(@RequestBody BoardsSaveRequestDto boardDto, Principal principal) {
+	@PostMapping("/post/save")//@RequestParam("images") List<MultipartFile> images,
+	public ResponseEntity<Map<String, Object>> test(@RequestBody BoardsSaveRequestDto boardDto, 
+
+			Principal principal) {
 		//boardService.savePost(boardDto, principal);
 		System.out.println(boardDto.toString());
+		//System.out.println(images.toString());
 		Map<String, Object> responseMap = new HashMap<>();
 		responseMap.put("msg", "save");
 		return new ResponseEntity<>(responseMap, HttpStatus.OK);
