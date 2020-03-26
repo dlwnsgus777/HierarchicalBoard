@@ -9,6 +9,7 @@ import javax.persistence.Id;
 import org.hibernate.annotations.DynamicUpdate;
 
 import lombok.AccessLevel;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
@@ -25,9 +26,11 @@ public class Images {
 	@Column(nullable = false)
 	private String fileName;
 	
-	@Column(nullable = false)
-	private String fileType;
-	
 	private Long boardId;
 	
+	@Builder
+	public Images(String fileName, Long boardId) {
+		this.fileName = fileName;
+		this.boardId = boardId;
+	}
 }

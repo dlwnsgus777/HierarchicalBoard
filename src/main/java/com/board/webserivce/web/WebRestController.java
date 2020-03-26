@@ -20,9 +20,9 @@ import org.springframework.web.multipart.MultipartFile;
 
 import com.board.webserivce.domain.boards.Boards;
 import com.board.webserivce.domain.boards.BoardsRepository;
-import com.board.webserivce.dto.ImagesSaveDto;
 import com.board.webserivce.dto.boards.BoardsFindResponseDto;
 import com.board.webserivce.dto.boards.BoardsSaveRequestDto;
+import com.board.webserivce.dto.images.ImagesSaveRequestDto;
 import com.board.webserivce.dto.users.UsersSaveRequestDto;
 import com.board.webserivce.service.BoardService;
 import com.board.webserivce.service.ImagesService;
@@ -78,18 +78,13 @@ public class WebRestController {
 	}
 	
 	@PostMapping("/post/save")//@RequestParam("images") List<MultipartFile> images,
-	public ResponseEntity<Map<String, Object>> test(BoardsSaveRequestDto boardDto, ImagesSaveDto imageDto, Principal principal) {
+	public ResponseEntity<Map<String, Object>> test(BoardsSaveRequestDto boardDto, ImagesSaveRequestDto imageDto, Principal principal) {
 		Long boardId = boardService.savePost(boardDto, principal);
 		long checkFileSize = imageDto.getImages().get(0).getSize();
 		
 		if (checkFileSize > 0) {
-			imagesService.saveImages(imageDto.getImages(), boardId);
+			imagesService.saveImages(imageDto, boardId);
 		}
-		
-		System.out.println(boardDto.toString());
-		System.out.println(imageDto.getImages().get(0).getSize());
-		System.out.println(imageDto.getImages().isEmpty());
-		
 		Map<String, Object> responseMap = new HashMap<>();
 		responseMap.put("msg", "save");
 		return new ResponseEntity<>(responseMap, HttpStatus.OK);
