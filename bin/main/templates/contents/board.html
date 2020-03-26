@@ -8,7 +8,7 @@
 <section layout:fragment="content">
 	<h1>계층형 게시판</h1>
 	<div class="container">
-		
+		<img src="/static/img/a482aa92-df76-418e-abfd-50794432f5f8_소소한오픈소스기여.png" />
 <table class="table table-striped table-bordered table-hover">
         <thead>
             <tr>
@@ -72,7 +72,7 @@
                         </div>
                         <div class="form-group">
                             <label for="author"> 이미지 </label>
-                            <input type="file" class="form-control" name="images" id="images" placeholder="이미지 첨부" multiple>
+                            <input type="file" class="form-control" name="images" id="images" placeholder="이미지 첨부" multiple accept="image/*">
                         </div>
                         <div class="form-group">
                             <label for="content"> 내용 </label>
@@ -92,27 +92,32 @@
     	let board = {
     		init: function() {
     			this.clickWriteBtn();
+    			this.cheackImageFiles();
     		},
     		csrf: {
     			token: $("meta[name='_csrf']").attr("content"),
     			header: $("meta[name='_csrf_header']").attr("content")
     		},
     		cheackImageFiles: function() {
-    			let imageInput = $('#images')[0];
-    			let files = imageInput.files;
+    			$("#images").change(function(e) {
+    				let files = this.files
+    				if (files.length > 3) {
+    					alert("이미지는 최대 3개까지만 가능합니다.")
+    					$(this).val("")
+    				}
+    				
+    				for(let i = 0; i < files.length; i++) {
+    					if(!files[i].type.includes("image/")) {
+    						alert("이미지만 등록할 수 있습니다.");
+    						$(this).val("")
+    					}
+    				}
+    			})
     		},
     		clickWriteBtn: function() {
     			let $this = this;
     			$("#btn-write").click(function() {
-    				$this.cheackImageFiles();
-    				let post = {
-    					title : $("#title").val(),
-    					content : $("#content").val(),
-    					images: $('#images')[0].files
-    				}
-    				let test = new FormData($("#write-frm")[0]);
-    				console.log(test)
-    				console.log(post)
+    				let post = new FormData($("#write-frm")[0]);
      		        $.ajax({
 			            type: 'POST',
 			            url: '/post/save',
@@ -120,7 +125,7 @@
 			            contentType: false,//'application/json; charset=utf-8',
 			            processData: false,
 			            enctype: 'multipart/form-data',
-			            data: test,//post,//JSON.stringify(post),
+			            data: post,//post,//JSON.stringify(post),
 			            beforeSend: function(xhr) {
 		    				xhr.setRequestHeader($this.csrf.header, $this.csrf.token);
 		    			}

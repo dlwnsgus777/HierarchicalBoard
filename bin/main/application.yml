@@ -17,3 +17,9 @@ spring:
   servlet:    multipart:      enabled: true
   thymeleaf:
     cache: false
+
+# 이미지 저장 경로 설정
+custom:
+  path:
+    uri-path: '/static/img'
+    location-path: '/var/app/images' 

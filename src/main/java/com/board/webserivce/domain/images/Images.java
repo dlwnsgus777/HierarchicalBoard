@@ -23,9 +23,6 @@ public class Images {
 	private Long id;
 	
 	@Column(nullable = false)
-	private String path;
-	
-	@Column(nullable = false)
 	private String fileName;
 	
 	@Column(nullable = false)
