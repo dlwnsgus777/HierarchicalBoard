@@ -7,6 +7,8 @@ import java.util.Optional;
 
 import org.modelmapper.ModelMapper;
 import org.modelmapper.TypeToken;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -33,7 +35,7 @@ public class BoardService {
 		
 		boardDto.setAuthor(user);
 		Boards board = boardRepository.save(boardDto.toEntity());
-		
+
 		return board.getId();
 	}
 	
@@ -54,5 +56,17 @@ public class BoardService {
 		List<BoardsFindAllResponseDto> boardsDto = modelmapper.map(boards, listType);
 			
 		return boardsDto;
+	}
+	
+	@Transactional
+	public Page<Boards> findAllPostTest() {
+		PageRequest page = PageRequest.of(0, 1);
+		ModelMapper modelmapper = new ModelMapper();
+		//Type listType = new TypeToken<List<BoardsFindAllResponseDto>>(){}.getType();
+		Page<Boards> boards = boardRepository.findAllBoards(page);
+
+		//List<BoardsFindAllResponseDto> boardsDto = modelmapper.map(boards, listType);
+			
+		return boards;
 	}
 }

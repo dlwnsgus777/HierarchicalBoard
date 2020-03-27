@@ -5,6 +5,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.ui.ModelMap;
@@ -96,7 +97,7 @@ public class WebRestController {
 	
 	@GetMapping("/test")
 	public ResponseEntity<Map<String, Object>> test(Principal prin, ModelMap model) {
-		List<BoardsFindAllResponseDto> boards = boardService.findAllPost();
+		Page<Boards> boards = boardService.findAllPostTest();
 		model.addAttribute("posts", boards);
 		model.addAttribute("msg", "success");
 		return  new ResponseEntity<>(model, HttpStatus.OK);
