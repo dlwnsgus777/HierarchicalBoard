@@ -14,29 +14,17 @@
             <tr>
                 <th style="width: 7%">글번호</th>
                 <th scope="col">제목</th>
-                <th style="width: 5%">작성자</th>
-                <th style="width: 7%">날짜</th>
+                <th style="width: 7%">작성자</th>
+                <th style="width: 8%">날짜</th>
             </tr>
         </thead>
-        <tbody>
-            <tr>
-                <td class="text-center" scope="row" data-id="1">글번호1</td>
-                <td class="text-overflow" style="max-width: 300px;">글제목1</td>
-                <td class="text-overflow" style="max-width: 100px;">작성자1</td>
-                <td class="text-center">날짜1</td>
-            </tr>
-            <tr>
-                <td class="text-center" scope="row" data-id="1">글번호1</td>
-                <td class="text-overflow" style="max-width: 300px;">글제목1</td>
-                <td class="text-overflow" style="max-width: 100px;">작성자1</td>
-                <td class="text-center">날짜1</td>
-            </tr>
-            <tr>
-                <td class="text-center" scope="row" data-id="1">글번호1</td>
-                <td class="text-overflow" style="max-width: 300px;">글제목1</td>
-                <td class="text-overflow" style="max-width: 100px;">작성자1</td>
-                <td class="text-center">날짜1</td>
-            </tr>
+        <tbody id="wrap__post">
+<!--             <tr th:each="post: ${posts}">
+                <td class="text-center" scope="row" data-id="${post.id}" th:text="${post.id}"></td>
+                <td class="text-overflow" style="max-width: 300px;" th:text="${post.title}"></td>
+                <td class="text-overflow" style="max-width: 100px;" th:text="${post.authorName}"></td>
+                <td class="text-center" th:text="${post.createdDate}"></td>
+            </tr> -->
         </tbody>
     </table>
 
@@ -93,6 +81,7 @@
     		init: function() {
     			this.clickWriteBtn();
     			this.cheackImageFiles();
+    			this.getPosts();
     		},
     		csrf: {
     			token: $("meta[name='_csrf']").attr("content"),
@@ -141,6 +130,39 @@
 			            console.log(error);
 			        }); 
     			})
+    		},
+    		getPosts: function() {
+    			let $this = this;
+    			 $.ajax({
+			            type: 'GET',
+			            url: '/posts',
+			            dataType: 'json',
+			            contentType:'application/json; charset=utf-8',		        
+			            beforeSend: function(xhr) {
+		    				xhr.setRequestHeader($this.csrf.header, $this.csrf.token);
+		    			}
+			        }).done(function(result) {
+			        	console.log(result);
+			        	$("#wrap__post").empty();
+			        	result.posts.forEach(post => {
+			        		const hierarchicalStamp = 'ㄴ'.repeat(post.depth);
+				        	const postTableTag = `
+				                <tr>
+				                	<td class="text-center" scope="row" data-id="${post.id}">${post.id}</td>
+				                	<td class="text-overflow" style="max-width: 300px;">${hierarchicalStamp + ' ' +post.title}</td>
+				                	<td class="text-center" style="max-width: 100px;">${post.authorName}</td>
+				                	<td class="text-center">${post.createdDate}</td>
+				            	</tr>
+				        	`;
+				        	$("#wrap__post").append(postTableTag);
+			        	})
+			        	if (result.msg !== "success") {
+			        		alert("게시글 로드에 실패했습니다.");
+			        		location.reload();
+			        	} 
+			        }).fail(function (error) {
+			            console.log(error);
+			        }); 
     		}
     	}
     	$(function() {

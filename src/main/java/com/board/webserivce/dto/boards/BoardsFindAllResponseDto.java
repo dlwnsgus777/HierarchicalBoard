@@ -12,14 +12,12 @@ import lombok.Setter;
 @Getter
 @Setter
 @NoArgsConstructor
-public class BoardsFindResponseDto {
+public class BoardsFindAllResponseDto {
+	private Long id;
 	private String title;
 	private String content;
 	private Long authorId;
 	private int depth;
-	private Long parentId;
 	private String authorName;
 	private LocalDate createdDate;
-	private LocalDate modifiedDate;
-	private List<Object> images;
 }

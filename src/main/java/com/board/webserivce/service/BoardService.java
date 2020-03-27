@@ -14,6 +14,7 @@ import com.board.webserivce.domain.boards.Boards;
 import com.board.webserivce.domain.boards.BoardsRepository;
 import com.board.webserivce.domain.users.Users;
 import com.board.webserivce.domain.users.UsersRepository;
+import com.board.webserivce.dto.boards.BoardsFindAllResponseDto;
 import com.board.webserivce.dto.boards.BoardsFindResponseDto;
 import com.board.webserivce.dto.boards.BoardsSaveRequestDto;
 
@@ -45,15 +46,12 @@ public class BoardService {
 	}
 	
 	@Transactional
-	public List<BoardsFindResponseDto> findAllPost() {
+	public List<BoardsFindAllResponseDto> findAllPost() {
 		ModelMapper modelmapper = new ModelMapper();
-		Type listType = new TypeToken<List<BoardsFindResponseDto>>(){}.getType();
+		Type listType = new TypeToken<List<BoardsFindAllResponseDto>>(){}.getType();
 		List<Boards> boards = boardRepository.findAllBoard();
-		for(Boards board: boards) {
-			System.out.println(board.getAuthor().getUserId());
-		}
-		List<BoardsFindResponseDto> boardsDto = modelmapper.map(boards, listType);
-
+		List<BoardsFindAllResponseDto> boardsDto = modelmapper.map(boards, listType);
+			
 		return boardsDto;
 	}
 }

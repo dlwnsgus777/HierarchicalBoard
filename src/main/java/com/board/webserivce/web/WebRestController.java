@@ -5,8 +5,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import javax.servlet.http.HttpServletRequest;
-
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.ui.ModelMap;
@@ -14,13 +12,11 @@ import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
-import org.springframework.web.multipart.MultipartFile;
 
 import com.board.webserivce.domain.boards.Boards;
 import com.board.webserivce.domain.boards.BoardsRepository;
-import com.board.webserivce.dto.boards.BoardsFindResponseDto;
+import com.board.webserivce.dto.boards.BoardsFindAllResponseDto;
 import com.board.webserivce.dto.boards.BoardsSaveRequestDto;
 import com.board.webserivce.dto.images.ImagesSaveRequestDto;
 import com.board.webserivce.dto.users.UsersSaveRequestDto;
@@ -90,16 +86,11 @@ public class WebRestController {
 		return new ResponseEntity<>(responseMap, HttpStatus.OK);
 	}
 	
-	@GetMapping("/test")
+	@GetMapping("/posts")
 	public ResponseEntity<Map<String, Object>> test(Principal prin, ModelMap model) {
-		List<Boards> boardss = bb.findAllBoard();
-//		Users user = users.get();
-//		Boards bo = Boards.builder().title("tq").content("test content").depth(0).parentId(null).authorId(user.getId()).build();
-//		bb.save(bo);
-//		user.addBoard(bb.findAll().get(0));
-		List<BoardsFindResponseDto> boards = boardService.findAllPost();
-		model.addAttribute("test", boards);
-		model.addAttribute("test2", boardss);
+		List<BoardsFindAllResponseDto> boards = boardService.findAllPost();
+		model.addAttribute("posts", boards);
+		model.addAttribute("msg", "success");
 		return  new ResponseEntity<>(model, HttpStatus.OK);
 	}
 	
