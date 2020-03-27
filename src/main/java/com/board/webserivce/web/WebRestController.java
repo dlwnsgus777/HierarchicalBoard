@@ -87,6 +87,14 @@ public class WebRestController {
 	}
 	
 	@GetMapping("/posts")
+	public ResponseEntity<Map<String, Object>> getPosts(Principal prin, ModelMap model) {
+		List<BoardsFindAllResponseDto> boards = boardService.findAllPost();
+		model.addAttribute("posts", boards);
+		model.addAttribute("msg", "success");
+		return  new ResponseEntity<>(model, HttpStatus.OK);
+	}
+	
+	@GetMapping("/test")
 	public ResponseEntity<Map<String, Object>> test(Principal prin, ModelMap model) {
 		List<BoardsFindAllResponseDto> boards = boardService.findAllPost();
 		model.addAttribute("posts", boards);

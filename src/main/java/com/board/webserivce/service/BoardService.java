@@ -50,6 +50,7 @@ public class BoardService {
 		ModelMapper modelmapper = new ModelMapper();
 		Type listType = new TypeToken<List<BoardsFindAllResponseDto>>(){}.getType();
 		List<Boards> boards = boardRepository.findAllBoard();
+
 		List<BoardsFindAllResponseDto> boardsDto = modelmapper.map(boards, listType);
 			
 		return boardsDto;
