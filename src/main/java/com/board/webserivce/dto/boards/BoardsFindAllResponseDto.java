@@ -3,8 +3,10 @@ package com.board.webserivce.dto.boards;
 import java.time.LocalDate;
 import java.util.List;
 
+import com.board.webserivce.domain.boards.Boards;
 import com.board.webserivce.domain.users.Users;
 
+import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -20,4 +22,14 @@ public class BoardsFindAllResponseDto {
 	private int depth;
 	private String authorName;
 	private LocalDate createdDate;
+	
+	public void converEntityToDto(Boards boards) {
+		this.id = boards.getId();
+		this.title = boards.getTitle();
+		this.content = boards.getContent();
+		this.authorId = boards.getAuthor().getId();
+		this.depth = boards.getDepth();
+		this.authorName = boards.getAuthor().getUserName();
+		this.createdDate = boards.getCreatedDate();
+	}
 }

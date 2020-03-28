@@ -4,11 +4,13 @@ import java.lang.reflect.Type;
 import java.security.Principal;
 import java.util.List;
 import java.util.Optional;
+import java.util.function.Function;
 
 import org.modelmapper.ModelMapper;
 import org.modelmapper.TypeToken;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -20,6 +22,7 @@ import com.board.webserivce.dto.boards.BoardsFindAllResponseDto;
 import com.board.webserivce.dto.boards.BoardsFindResponseDto;
 import com.board.webserivce.dto.boards.BoardsSaveRequestDto;
 
+import ch.qos.logback.core.pattern.Converter;
 import lombok.AllArgsConstructor;
 
 @Service
@@ -47,26 +50,37 @@ public class BoardService {
 		}
 	}
 	
-	@Transactional
-	public List<BoardsFindAllResponseDto> findAllPost() {
-		ModelMapper modelmapper = new ModelMapper();
-		Type listType = new TypeToken<List<BoardsFindAllResponseDto>>(){}.getType();
-		List<Boards> boards = boardRepository.findAllBoard();
-
-		List<BoardsFindAllResponseDto> boardsDto = modelmapper.map(boards, listType);
-			
-		return boardsDto;
-	}
+//	@Transactional
+//	public List<BoardsFindAllResponseDto> findAllPost() {
+//		ModelMapper modelmapper = new ModelMapper();
+//		Type listType = new TypeToken<List<BoardsFindAllResponseDto>>(){}.getType();
+//		List<Boards> boards = boardRepository.findAllBoard();
+//
+//		List<BoardsFindAllResponseDto> boardsDto = modelmapper.map(boards, listType);
+//			
+//		return boardsDto;
+//	}
 	
-	@Transactional
-	public Page<Boards> findAllPostTest() {
-		PageRequest page = PageRequest.of(0, 1);
+	@Transactional// Page<Boards>
+	public Page<BoardsFindAllResponseDto> findAllPost() {
+		Pageable page = PageRequest.of(0, 1);
+		System.out.println(page);
 		ModelMapper modelmapper = new ModelMapper();
-		//Type listType = new TypeToken<List<BoardsFindAllResponseDto>>(){}.getType();
+		Type listType = new TypeToken<Page<BoardsFindAllResponseDto>>(){}.getType();
 		Page<Boards> boards = boardRepository.findAllBoards(page);
+		//Page<BoardsFindAllResponseDto> boardsDto = modelmapper.map(boards, listType);
+		Page<BoardsFindAllResponseDto> boardsDto = boards.map(new Function<Boards, BoardsFindAllResponseDto>() {
 
-		//List<BoardsFindAllResponseDto> boardsDto = modelmapper.map(boards, listType);
+			@Override
+			public BoardsFindAllResponseDto apply(Boards t) {
+				// TODO Auto-generated method stub
+				BoardsFindAllResponseDto dto = new BoardsFindAllResponseDto();
+				dto.converEntityToDto(t);
+				return dto;
+			}
 			
-		return boards;
+		});
+
+		return boardsDto;
 	}
 }

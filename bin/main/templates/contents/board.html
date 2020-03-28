@@ -144,7 +144,7 @@
 			        }).done(function(result) {
 			        	console.log(result);
 			        	$("#wrap__post").empty();
-			        	result.posts.forEach(post => {
+			        	result.posts.content.forEach(post => {
 			        		const hierarchicalStamp = 'ㄴ'.repeat(post.depth);
 				        	const postTableTag = `
 				                <tr>
