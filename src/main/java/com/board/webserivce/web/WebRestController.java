@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.board.webserivce.domain.boards.Boards;
 import com.board.webserivce.domain.boards.BoardsRepository;
 import com.board.webserivce.dto.boards.BoardsFindAllResponseDto;
+import com.board.webserivce.dto.boards.BoardsFindResponseDto;
 import com.board.webserivce.dto.boards.BoardsSaveRequestDto;
 import com.board.webserivce.dto.images.ImagesSaveRequestDto;
 import com.board.webserivce.dto.users.UsersSaveRequestDto;
@@ -87,17 +88,9 @@ public class WebRestController {
 		return new ResponseEntity<>(responseMap, HttpStatus.OK);
 	}
 	
-	@GetMapping("/posts")
-	public ResponseEntity<Map<String, Object>> getPosts(Principal prin, ModelMap model) {
-		Page<BoardsFindAllResponseDto> boards = boardService.findAllPost();
-		model.addAttribute("posts", boards);
-		model.addAttribute("msg", "success");
-		return  new ResponseEntity<>(model, HttpStatus.OK);
-	}
-	
 	@GetMapping("/test")
 	public ResponseEntity<Map<String, Object>> test(Principal prin, ModelMap model) {
-		Page<BoardsFindAllResponseDto> boards = boardService.findAllPost();
+		BoardsFindResponseDto boards = boardService.findPost(6);
 		model.addAttribute("posts", boards);
 		model.addAttribute("msg", "success");
 		return  new ResponseEntity<>(model, HttpStatus.OK);

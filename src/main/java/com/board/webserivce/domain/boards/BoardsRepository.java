@@ -10,6 +10,8 @@ import org.springframework.data.jpa.repository.Query;
 public interface BoardsRepository extends JpaRepository<Boards, Long> {
 	Long deleteById(int id);
 	
+	Boards findById(long boardId);
+	
 	@Query(value = "WITH RECURSIVE CTS AS (\r\n" + 
 			"	SELECT  id\r\n" + 
 			"		   ,title\r\n" + 

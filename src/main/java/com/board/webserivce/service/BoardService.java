@@ -50,24 +50,23 @@ public class BoardService {
 		}
 	}
 	
-//	@Transactional
-//	public List<BoardsFindAllResponseDto> findAllPost() {
-//		ModelMapper modelmapper = new ModelMapper();
-//		Type listType = new TypeToken<List<BoardsFindAllResponseDto>>(){}.getType();
-//		List<Boards> boards = boardRepository.findAllBoard();
-//
-//		List<BoardsFindAllResponseDto> boardsDto = modelmapper.map(boards, listType);
-//			
-//		return boardsDto;
-//	}
+	@Transactional
+	public BoardsFindResponseDto findPost(int boardId) {
+		ModelMapper modelmapper = new ModelMapper();
+		Boards boards = boardRepository.findById((long)boardId);
+		BoardsFindResponseDto boardsDto = modelmapper.map(boards, BoardsFindResponseDto.class);
+			
+		return boardsDto;
+	}
 	
 	@Transactional// Page<Boards>
-	public Page<BoardsFindAllResponseDto> findAllPost() {
-		Pageable page = PageRequest.of(0, 1);
+	public Page<BoardsFindAllResponseDto> findAllPost(int page) {
+		int pageNumber = page - 1;
+		Pageable pageAble = PageRequest.of(pageNumber, 3);
 		System.out.println(page);
-		ModelMapper modelmapper = new ModelMapper();
-		Type listType = new TypeToken<Page<BoardsFindAllResponseDto>>(){}.getType();
-		Page<Boards> boards = boardRepository.findAllBoards(page);
+		//ModelMapper modelmapper = new ModelMapper();
+		//Type listType = new TypeToken<Page<BoardsFindAllResponseDto>>(){}.getType();
+		Page<Boards> boards = boardRepository.findAllBoards(pageAble);
 		//Page<BoardsFindAllResponseDto> boardsDto = modelmapper.map(boards, listType);
 		Page<BoardsFindAllResponseDto> boardsDto = boards.map(new Function<Boards, BoardsFindAllResponseDto>() {
 

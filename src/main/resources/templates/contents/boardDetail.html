@@ -12,14 +12,19 @@
 					<div class="wrap__board">
 						<div class="text-left">
 							<h3>
-								<span th:text="${path}"></span> 타이틀
+								<span th:text="${post.title}"></span>
 							</h3>
 							<div>
 								<div>
-									<span>작성자</span> 님이 <span>작성일</span> 작성한 글입니다.
+									<span th:text="${post.authorName}"></span> 님이 <span th:text="${post.createdDate}"></span> 작성한 글입니다.
 								</div>
 								<hr>
-								<div>게시글 본문</div>
+									<div th:each="image :${post.images}">
+								    	<img th:src="|/static/img/${image.fileName}|" />
+								    </div>
+								<div>
+									<p th:text="${post.content}"></p>
+								</div>
 							</div>
 
 						</div>

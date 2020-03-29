@@ -2,22 +2,29 @@ package com.board.webserivce.web;
 
 import java.security.Principal;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 
 import javax.persistence.EntityManager;
 import javax.transaction.Transactional;
 
+import org.springframework.data.domain.Page;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.board.webserivce.domain.boards.Boards;
 import com.board.webserivce.domain.boards.BoardsRepository;
 import com.board.webserivce.domain.users.Users;
 import com.board.webserivce.domain.users.UsersRepository;
+import com.board.webserivce.dto.boards.BoardsFindAllResponseDto;
+import com.board.webserivce.dto.boards.BoardsFindResponseDto;
 import com.board.webserivce.service.BoardService;
 
 import lombok.AllArgsConstructor;
@@ -27,7 +34,8 @@ import lombok.AllArgsConstructor;
 public class WebController {
 	private UsersRepository userRepository;
 	private BoardsRepository bb;
-	private BoardService bs;
+	private BoardService boardService;
+	
 	@GetMapping("/")
 	public String init() {
 		return "contents/index";
@@ -60,11 +68,20 @@ public class WebController {
 	
 	@GetMapping("/board/{id}")
 	public String getBoardDetail(@PathVariable int id, ModelMap model) {
-		
+		BoardsFindResponseDto boardDto = boardService.findPost(id);
 		model.addAttribute("path", id);
+		model.addAttribute("post", boardDto);
 		return "contents/boardDetail";
 	}
 	
+	@GetMapping("/posts")
+	public String getPosts(@RequestParam("page") int page, ModelMap model) {
+		System.out.println(page);
+		Page<BoardsFindAllResponseDto> boards = boardService.findAllPost(page);
+		model.addAttribute("posts", boards);
+		model.addAttribute("msg", "success");
+		return  "cmmn/postList";
+	}
 //	@GetMapping("/test")
 //	public String test(Principal prin, ModelMap model) {
 //		List<Boards> boards = bb.findAllBoard();
