@@ -9,9 +9,11 @@
         </thead>
         <tbody id="wrap__post">
             <tr th:each="post: ${posts.content}">
-                <td class="text-center" scope="row" th:attr="data-id=${post.id}" th:text="${post.id}"></td>
-                <td class="text-overflow" style="max-width: 300px;" th:text="${post.title}"></td>
-                <td class="text-overflow" style="max-width: 100px;" th:text="${post.authorName}"></td>
+                <td class="text-center" scope="row" th:attr="data-id=${post.authorName} == null ? 'del' :${post.id}" th:text="${post.id}"></td>
+                <td class="text-overflow" style="max-width: 300px;" th:text="${post.title}">
+                <span th:text="${post.depth}"></span>
+                </td>
+                <td class="text-overflow" style="max-width: 100px;" th:text="${post.authorName} == null ? '탈퇴한유저' :${post.authorName}"></td>
                 <td class="text-center" th:text="${post.createdDate}"></td>
             </tr> 
         </tbody>

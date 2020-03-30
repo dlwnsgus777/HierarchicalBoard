@@ -3,6 +3,7 @@ package com.board.webserivce.domain.boards;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -53,7 +54,7 @@ public class Boards extends BaseTimeEntity {
 	@JoinColumn(name = "author_id")
 	private Users author;
 	
-	@OneToMany(orphanRemoval = true)
+	@OneToMany(orphanRemoval = true, cascade = CascadeType.ALL)
 	@JoinColumn(name = "boardId")
 	private List<Images> images = new ArrayList<>();
 	
@@ -69,5 +70,6 @@ public class Boards extends BaseTimeEntity {
 	public void deleteBoard() {
 		this.title = "삭제 되었습니다.";
 		this.author = null;
+		this.images.clear();
 	}
 }

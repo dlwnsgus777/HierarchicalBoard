@@ -43,10 +43,6 @@ public class Users extends BaseTimeEntity {
 	@Column(unique = true)
 	private String userName;
 	
-//	@OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)// (cascade = CascadeType.ALL, orphanRemoval = true)
-//	@JoinColumn(name = "author_id")
-//	private List<Boards> boards = new ArrayList<>();
-	
 	@Builder
 	public Users(String userId, String password, String userName) {
 		this.userId = userId;
@@ -57,12 +53,4 @@ public class Users extends BaseTimeEntity {
 	public void changeUserName(String userName) {
 		this.userName = userName;
 	}
-//	
-//	public void addBoard(Boards board) {
-//		boards.add(board);
-//	}
-//	
-//	public void removeBoard(Boards board) {
-//		boards.remove(board);
-//	}
 }

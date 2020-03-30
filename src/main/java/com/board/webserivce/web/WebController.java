@@ -66,12 +66,12 @@ public class WebController {
 		return "contents/info";
 	}
 	
-	@GetMapping("/board/{id}")
+	@GetMapping("/post/{id}")
 	public String getBoardDetail(@PathVariable int id, ModelMap model) {
 		BoardsFindResponseDto boardDto = boardService.findPost(id);
 		model.addAttribute("path", id);
 		model.addAttribute("post", boardDto);
-		return "contents/boardDetail";
+		return "contents/postDetail";
 	}
 	
 	@GetMapping("/posts")

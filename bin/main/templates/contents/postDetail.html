@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org"
+	xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorate="~{cmmn/layout}">
+
+<section layout:fragment="content">
+	<div class="container wrap__content">
+		<div class="row text-center">
+			<div>
+				<div class="thumbnail">
+					<div class="wrap__board">
+						<div class="text-left">
+							<h3>
+								<span th:text="${post.title}"></span>
+							</h3>
+							<div>
+								<div>
+									<span th:text="${post.authorName}"></span> 님이 <span th:text="${post.createdDate}"></span> 작성한 글입니다.
+								</div>
+								<hr>
+									<div th:each="image :${post.images}">
+								    	<img th:src="|/static/img/${image.fileName}|" />
+								    </div>
+								<div>
+									<p th:text="${post.content}"></p>
+								</div>
+							</div>
+
+						</div>
+
+					</div>
+				</div>
+				<div class="text-right">
+					<button th:if="${post.parentId} != null" type="button" class="btn btn-info"  id="btn-change-modal">원글보기</button>
+					<button type="button" class="btn btn-primary"  id="post-reply-btn" data-toggle="modal" data-target="#replyPostsModal">답글달기</button>
+					<button th:if="${#authentication.principal.Username} == ${post.authorUserId}" type="button" class="btn btn-danger"  id="post-del-btn">삭제</button>
+					<button th:if="${#authentication.principal.Username} == ${post.authorUserId}" type="button" class="btn btn-warning"  id="post-fix-btn">수정</button>
+				</div>
+			</div>
+		</div>
+		    <div class="modal fade" id="replyPostsModal" tabindex="-1" role="dialog" aria-labelledby="replyPostsLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="replyPostsLabel">게시글 등록</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <form enctype="multipart/form-data" th:action="@{/post/save}" method="post" id="write-frm">
+                        <div class="form-group">
+                            <label for="title">제목</label>
+                            <input type="text" class="form-control" name="title" id="title" placeholder="제목을 입력하세요">
+                        </div>
+                        <div class="form-group">
+                            <label for="author"> 이미지 </label>
+                            <input type="file" class="form-control" name="images" id="images" placeholder="이미지 첨부" multiple accept="image/*">
+                        </div>
+                        <div class="form-group">
+                            <label for="content"> 내용 </label>
+                            <textarea class="form-control" name="content" id="content" placeholder="내용을 입력하세요"  style="resize: none; height: 300px;"></textarea>
+                        </div>
+                    </form>
+                 <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">취소</button>
+                    <button type="button" clss="btn btn-primary" id="btn-write-reply">등록</button>
+                </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+	</div>
+	<script>
+		console.log(sessionStorage);
+	</script>
+</section>

@@ -122,7 +122,12 @@
     		clickPost: function() {
     			$("#post__list").on("click", "#wrap__post td", function() {
     				const postId = $(this).parent().children(":first").data("id");
-    				location.href=`/board/${postId}`;
+    				if (postId === "del") {
+    					alert("삭제된 게시글 입니다.")
+    				} else {
+    					location.href=`/post/${postId}`;
+    				}
+    				
     			})
     		}
     	}

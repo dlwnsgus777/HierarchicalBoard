@@ -27,9 +27,9 @@ public class BoardsFindAllResponseDto {
 		this.id = boards.getId();
 		this.title = boards.getTitle();
 		this.content = boards.getContent();
-		this.authorId = boards.getAuthor().getId();
+		this.authorId = boards.getAuthor() == null ? null :  boards.getAuthor().getId();
 		this.depth = boards.getDepth();
-		this.authorName = boards.getAuthor().getUserName();
+		this.authorName = boards.getAuthor() == null ? null :boards.getAuthor().getUserName();
 		this.createdDate = boards.getCreatedDate();
 	}
 }

@@ -19,6 +19,7 @@ public class BoardsFindResponseDto {
 	private int depth;
 	private Long parentId;
 	private String authorName;
+	private String authorUserId;
 	private LocalDate createdDate;
 	private LocalDate modifiedDate;
 	private List<Object> images;
