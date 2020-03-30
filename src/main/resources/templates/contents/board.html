@@ -137,6 +137,19 @@
     			console.log($(this).text())
     			board.getPosts($(this).text());
     		})
+			 $.ajax({
+		            type: 'GET',
+		            url: `test`,
+		            dataType: 'json',
+		            contentType:'application/json; charset=utf-8',
+		            beforeSend: function(xhr) {
+	    				xhr.setRequestHeader(board.csrf.header, board.csrf.token);
+	    			}
+		        }).done(function(result) {
+					console.log(result)
+		        }).fail(function (error) {
+		            console.log(error);
+		        }); 
     	});
 
     </script>

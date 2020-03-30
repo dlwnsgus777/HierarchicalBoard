@@ -6,6 +6,7 @@ import java.util.List;
 import java.util.Map;
 
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.ui.ModelMap;
@@ -25,6 +26,7 @@ import com.board.webserivce.dto.users.UsersSaveRequestDto;
 import com.board.webserivce.service.BoardService;
 import com.board.webserivce.service.ImagesService;
 import com.board.webserivce.service.UserSecurityService;
+import com.board.webserivce.utils.PageUtils;
 
 import lombok.AllArgsConstructor;
 
@@ -99,6 +101,8 @@ public class WebRestController {
 	@GetMapping("/test")
 	public ResponseEntity<Map<String, Object>> test(Principal prin, ModelMap model) {
 		Page<BoardsFindAllResponseDto>  boards = boardService.findAllPost(1);
+		Pageable page = boards.getPageable();
+		model.addAttribute("page", PageUtils.getPages(page));
 		model.addAttribute("posts", boards);
 		model.addAttribute("msg", "success");
 		return  new ResponseEntity<>(model, HttpStatus.OK);

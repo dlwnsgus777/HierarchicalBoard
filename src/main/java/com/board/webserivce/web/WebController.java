@@ -9,6 +9,7 @@ import javax.persistence.EntityManager;
 import javax.transaction.Transactional;
 
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
@@ -26,6 +27,7 @@ import com.board.webserivce.domain.users.UsersRepository;
 import com.board.webserivce.dto.boards.BoardsFindAllResponseDto;
 import com.board.webserivce.dto.boards.BoardsFindResponseDto;
 import com.board.webserivce.service.BoardService;
+import com.board.webserivce.utils.PageUtils;
 
 import lombok.AllArgsConstructor;
 
@@ -76,8 +78,9 @@ public class WebController {
 	
 	@GetMapping("/posts")
 	public String getPosts(@RequestParam("page") int page, ModelMap model) {
-		System.out.println(page);
 		Page<BoardsFindAllResponseDto> boards = boardService.findAllPost(page);
+		Pageable pageAble = boards.getPageable();
+		model.addAttribute("page", PageUtils.getPages(pageAble));
 		model.addAttribute("posts", boards);
 		model.addAttribute("msg", "success");
 		return  "cmmn/postList";
