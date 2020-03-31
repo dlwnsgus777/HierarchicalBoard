@@ -68,7 +68,7 @@ public class BoardService {
 	@Transactional// Page<Boards>
 	public Page<BoardsFindAllResponseDto> findAllPost(int page) {
 		int pageNumber = page - 1;
-		Pageable pageAble = PageRequest.of(pageNumber, 5);
+		Pageable pageAble = PageRequest.of(pageNumber, 2);
 		System.out.println(page);
 		//ModelMapper modelmapper = new ModelMapper();
 		//Type listType = new TypeToken<Page<BoardsFindAllResponseDto>>(){}.getType();

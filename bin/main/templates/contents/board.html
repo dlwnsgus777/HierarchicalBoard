@@ -53,6 +53,7 @@
     			this.cheackImageFiles();
     			this.getPosts();
     			this.clickPost();
+    			this.clickPageNation();
     		},
     		csrf: {
     			token: $("meta[name='_csrf']").attr("content"),
@@ -129,15 +130,25 @@
     				}
     				
     			})
+    		},
+    		clickPageNation: function() {
+        		$("#post__list").on("click",".pagination li", function() {
+        			const pageValue = $(this).text();
+        			if(pageValue === "Previous") {
+        				const page = $(".pagination .active > a").text();
+        				board.getPosts(Number(page) - 1);
+        			} else if (pageValue === "Next") {
+        				const page = $(".pagination .active > a").text();
+        				board.getPosts(Number(page) + 1);
+        			} else {
+        				board.getPosts(pageValue);
+        			}	
+        		})
     		}
     	}
     	$(function() {
     		board.init()
-    		$("#post__list").on("click",".pagination li", function(e) {
-    			console.log($(this).text())
-    			console.log(e);
-    			board.getPosts($(this).text());
-    		})
+
 			 $.ajax({
 		            type: 'GET',
 		            url: `test`,
