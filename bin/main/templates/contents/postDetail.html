@@ -9,7 +9,7 @@
 		<div class="row text-center">
 			<div>
 				<div class="thumbnail">
-					<div class="wrap__board">
+					<div  th:attr="data-id=${post.id}" class="wrap__board">
 						<div class="text-left">
 							<h3>
 								<span th:text="${post.title}"></span>
@@ -32,7 +32,7 @@
 					</div>
 				</div>
 				<div class="text-right">
-					<button th:if="${post.parentId} != null" type="button" class="btn btn-info"  id="btn-change-modal">원글보기</button>
+					<button th:attr="data-parent=${post.parentId}" th:if="${post.parentId} != null" type="button" class="btn btn-info"  id="btn-show-parentPost">원글보기</button>
 					<button type="button" class="btn btn-primary"  id="post-reply-btn" data-toggle="modal" data-target="#replyPostsModal">답글달기</button>
 					<button th:if="${#authentication.principal.Username} == ${post.authorUserId}" type="button" class="btn btn-danger"  id="post-del-btn">삭제</button>
 					<button th:if="${#authentication.principal.Username} == ${post.authorUserId}" type="button" class="btn btn-warning"  id="post-fix-btn">수정</button>
@@ -65,7 +65,7 @@
                     </form>
                  <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">취소</button>
-                    <button type="button" clss="btn btn-primary" id="btn-write-reply">등록</button>
+                    <button type="button" class="btn btn-primary" id="btn-write-reply">등록</button>
                 </div>
                 </div>
 
@@ -74,6 +74,98 @@
     </div>
 	</div>
 	<script>
-		console.log(sessionStorage);
+		let boardDetail = {
+			init: function() {
+				this.postReply();
+				this.cheackImageFiles();
+				this.showParentPost();
+				this.deletePost();
+			},
+			csrf: {
+    			token: $("meta[name='_csrf']").attr("content"),
+    			header: $("meta[name='_csrf_header']").attr("content")
+    		},
+    		cheackImageFiles: function() {
+    			$("#images").change(function(e) {
+    				let files = this.files
+    				if (files.length > 3) {
+    					alert("이미지는 최대 3개까지만 가능합니다.")
+    					$(this).val("")
+    				}
+    				
+    				for(let i = 0; i < files.length; i++) {
+    					if(!files[i].type.includes("image/")) {
+    						alert("이미지만 등록할 수 있습니다.");
+    						$(this).val("")
+    					}
+    				}
+    			})
+    		},
+			postReply: function() {
+				let $this = this;
+				$("#btn-write-reply").click(function() {
+    				let post = new FormData($("#write-frm")[0]);
+    				post.append("parentId", $(".wrap__board").data("id"))
+     		        $.ajax({
+			            type: 'POST',
+			            url: '/post/save',
+			            dataType: 'json',
+			            contentType: false,//'application/json; charset=utf-8',
+			            processData: false,
+			            enctype: 'multipart/form-data',
+			            data: post,//post,//JSON.stringify(post),
+			            beforeSend: function(xhr) {
+		    				xhr.setRequestHeader($this.csrf.header, $this.csrf.token);
+		    			}
+			        }).done(function(result) {
+			        	if (result.msg === "save") {
+				        	alert("게시글이 등록되었습니다.");
+				        	location.reload();
+			        	} else {
+			        		alert("게시글 등록에 실패했습니다. 다시 작성해주세요");
+			        		location.reload();
+			        	}
+			        }).fail(function (error) {
+			            console.log(error);
+			        });  
+				})
+			},
+			showParentPost: function() {
+				$("#btn-show-parentPost").click(function() {
+					const parentId = $(this).data("parent");
+					
+					location.href=`/post/${parentId}`;
+				})
+			},
+			deletePost: function() {
+				let $this = this;
+				$("#post-del-btn").click(function() {
+					const boardId = $(".wrap__board").data("id");
+					$.ajax({
+			            type: 'DELETE',
+			            url: `/post/${boardId}`,
+			            dataType: 'json',
+			            contentType: 'application/json; charset=utf-8',
+			            beforeSend: function(xhr) {
+		    				xhr.setRequestHeader($this.csrf.header, $this.csrf.token);
+		    			}
+			        }).done(function(result) {
+			        	if (result.msg === "success") {
+				        	alert("게시글이 삭제되었습니다.");
+				        	location.href = "/board";
+			        	} else {
+			        		alert("게시글 등록에 실패했습니다. 다시 작성해주세요");
+			        		location.reload();
+			        	}
+			        }).fail(function (error) {
+			            console.log(error);
+			        });  
+				})
+			}
+		}
+		$(function() {
+			boardDetail.init();
+		})
+		
 	</script>
 </section>

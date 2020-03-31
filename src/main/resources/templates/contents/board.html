@@ -133,8 +133,9 @@
     	}
     	$(function() {
     		board.init()
-    		$("#post__list").on("click",".pagination li", function() {
+    		$("#post__list").on("click",".pagination li", function(e) {
     			console.log($(this).text())
+    			console.log(e);
     			board.getPosts($(this).text());
     		})
 			 $.ajax({

@@ -44,4 +44,8 @@ public class BoardsSaveRequestDto {
 		this.author = author;
 	}
 	
+	public void setHierarchicalDepth(int depth) {
+		this.depth = depth + 1;
+	}
+	
 }

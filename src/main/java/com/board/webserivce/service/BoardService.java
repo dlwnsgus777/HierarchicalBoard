@@ -37,6 +37,12 @@ public class BoardService {
 		Users user = usersRepository.findByUserId(userId).get();
 		
 		boardDto.setAuthor(user);
+		
+		if (boardDto.getParentId() != null) {
+			Optional<Boards> parentBoard = boardRepository.findById(boardDto.getParentId());
+			boardDto.setHierarchicalDepth(parentBoard.get().getDepth());	
+		}
+		
 		Boards board = boardRepository.save(boardDto.toEntity());
 
 		return board.getId();
@@ -81,5 +87,15 @@ public class BoardService {
 		});
 
 		return boardsDto;
+	}
+	
+	@Transactional
+	public void deletePost(Long boardId, String userId) {
+		Users user = usersRepository.findByUserId(userId).get();
+		Boards board = boardRepository.findById(boardId).get();
+		
+		if (user.getUserId().equals(board.getAuthor().getUserId()) ) {
+			board.deleteBoard();
+		}
 	}
 }

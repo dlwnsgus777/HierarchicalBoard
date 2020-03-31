@@ -12,6 +12,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
@@ -89,6 +90,16 @@ public class WebRestController {
 		responseMap.put("msg", "save");
 		return new ResponseEntity<>(responseMap, HttpStatus.OK);
 	}
+	
+	@DeleteMapping("/post/{id}")
+	public ResponseEntity<Map<String, Object>> deletePost(@PathVariable Long id, Principal principal) {
+		String userId = principal.getName();
+		boardService.deletePost(id, userId);
+		
+		Map<String, Object> responseMap = new HashMap<>();
+		responseMap.put("msg", "success");
+		return new ResponseEntity<>(responseMap, HttpStatus.OK);
+	} 
 	
 //	@GetMapping("/test")
 //	public ResponseEntity<Map<String, Object>> test(Principal prin, ModelMap model) {

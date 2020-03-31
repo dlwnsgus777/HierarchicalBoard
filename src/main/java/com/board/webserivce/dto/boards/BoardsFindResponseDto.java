@@ -13,6 +13,7 @@ import lombok.Setter;
 @Setter
 @NoArgsConstructor
 public class BoardsFindResponseDto {
+	private Long id;
 	private String title;
 	private String content;
 	private Long authorId;
