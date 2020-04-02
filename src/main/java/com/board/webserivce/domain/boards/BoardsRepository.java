@@ -93,7 +93,7 @@ public interface BoardsRepository extends JpaRepository<Boards, Long> {
 			"from cts as b\r\n" + 
 //			"join users as u\r\n" + 
 //			"on b.author_id = u.id\r\n" + 
-			"ORDER BY lvl",
+			"ORDER BY  created_date desc, lvl",
 			countQuery = "SELECT count(*) FROM boards",
 			nativeQuery = true)
 	Page<Boards> findAllBoards(Pageable pageable);

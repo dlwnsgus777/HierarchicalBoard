@@ -134,6 +134,11 @@
     		clickPageNation: function() {
         		$("#post__list").on("click",".pagination li", function() {
         			const pageValue = $(this).text();
+        			
+        			if ($(this).data("haspage") === "none") {
+        				return;
+        			}
+        			
         			if(pageValue === "Previous") {
         				const page = $(".pagination .active > a").text();
         				board.getPosts(Number(page) - 1);

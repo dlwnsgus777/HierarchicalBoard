@@ -11,12 +11,12 @@ public class PageUtils {
 	public static Map<String, Object> getPages(Pageable page, int totalPage) {
 		Map<String, Object> pageMap = new HashMap<String, Object>();
 		int size = page.getPageSize();
-		int pageNumber = page.getPageNumber();
+		int pageNumber = page.getPageNumber() + 1;
 		int off = (int) page.getOffset();
-		int startPage = ((pageNumber - 1)   / pageScale) * pageScale + 1;
-		int endPage = startPage + pageScale - 1;
+		int startPage = ((pageNumber - 1)   / pageScale) * pageScale;// + 1;
+		int endPage = startPage + pageScale- 1;
 		
-		if (endPage > totalPage) {
+		if (endPage >= totalPage) {
 			endPage = totalPage;
 		}
 		
