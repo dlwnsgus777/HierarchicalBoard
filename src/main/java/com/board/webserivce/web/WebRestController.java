@@ -113,7 +113,7 @@ public class WebRestController {
 	public ResponseEntity<Map<String, Object>> test(Principal prin, ModelMap model) {
 		Page<BoardsFindAllResponseDto>  boards = boardService.findAllPost(1);
 		Pageable page = boards.getPageable();
-		model.addAttribute("page", PageUtils.getPages(page));
+		model.addAttribute("page", PageUtils.getPages(page, boards.getTotalPages()));
 		model.addAttribute("posts", boards);
 		model.addAttribute("msg", "success");
 		return  new ResponseEntity<>(model, HttpStatus.OK);
