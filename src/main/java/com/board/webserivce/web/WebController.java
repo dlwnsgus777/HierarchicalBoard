@@ -80,7 +80,7 @@ public class WebController {
 	public String getPosts(@RequestParam("page") int page, ModelMap model) {
 		Page<BoardsFindAllResponseDto> boards = boardService.findAllPost(page);
 		Pageable pageAble = boards.getPageable();
-		model.addAttribute("page", PageUtils.getPages(pageAble));
+		model.addAttribute("page", PageUtils.getPages(pageAble, boards.getTotalPages()));
 		model.addAttribute("posts", boards);
 		model.addAttribute("msg", "success");
 		return  "cmmn/postList";
