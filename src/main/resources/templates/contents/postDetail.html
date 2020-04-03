@@ -20,7 +20,7 @@
 								</div>
 								<hr>
 									<div th:each="image :${post.images}">
-								    	<img th:src="|/static/img/${image.fileName}|" />
+								    	<img th:src="|/static/img/${image.fileName}|" style="margin: 5px;"/>
 								    </div>
 								<div>
 									<p th:text="${post.content}"></p>
@@ -35,7 +35,7 @@
 					<button th:attr="data-parent=${post.parentId}" th:if="${post.parentId} != null" type="button" class="btn btn-info"  id="btn-show-parentPost">원글보기</button>
 					<button type="button" class="btn btn-primary"  id="post-reply-btn" data-toggle="modal" data-target="#replyPostsModal">답글달기</button>
 					<button th:if="${#authentication.principal.Username} == ${post.authorUserId}" type="button" class="btn btn-danger"  id="post-del-btn">삭제</button>
-					<button th:if="${#authentication.principal.Username} == ${post.authorUserId}" type="button" class="btn btn-warning"  id="post-fix-btn">수정</button>
+					<button th:if="${#authentication.principal.Username} == ${post.authorUserId}" data-toggle="modal" data-target="#modifiedPostsModal" type="button" class="btn btn-warning"  id="post-fix-btn">수정</button>
 				</div>
 			</div>
 		</div>
@@ -56,7 +56,7 @@
                         </div>
                         <div class="form-group">
                             <label for="author"> 이미지 </label>
-                            <input type="file" class="form-control" name="images" id="images" placeholder="이미지 첨부" multiple accept="image/*">
+                            <input type="file" class="form-control images__input" name="images" placeholder="이미지 첨부" multiple accept="image/*">
                         </div>
                         <div class="form-group">
                             <label for="content"> 내용 </label>
@@ -72,6 +72,40 @@
             </div>
         </div>
     </div>
+    
+    		    <div class="modal fade" id="modifiedPostsModal" tabindex="-1" role="dialog" aria-labelledby="modifiedPostsLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="modifiedPostsLabel">게시글 수정</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <form enctype="multipart/form-data" th:action="@{/post/save}" method="post" id="modified-frm">
+                        <div class="form-group">
+                            <label for="title">제목</label>
+                            <input type="text" class="form-control" name="title" th:value="${post.title}" id="title" placeholder="제목을 입력하세요">
+                        </div>
+                        <div class="form-group">
+                            <label for="author"> 이미지 </label>
+                            <input type="file" class="form-control images__input" name="images" placeholder="이미지 첨부" multiple accept="image/*">
+                        </div>
+                        <div class="form-group">
+                            <label for="content"> 내용 </label>
+                            <textarea class="form-control" name="content" id="content" th:text="${post.content}" placeholder="내용을 입력하세요"  style="resize: none; height: 300px;"></textarea>
+                        </div>
+                    </form>
+                 <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">취소</button>
+                    <button type="button" class="btn btn-primary" id="btn-write-modified">등록</button>
+                </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
 	</div>
 	<script>
 		let boardDetail = {
@@ -80,13 +114,14 @@
 				this.cheackImageFiles();
 				this.showParentPost();
 				this.deletePost();
+				this.modifiedPost();
 			},
 			csrf: {
     			token: $("meta[name='_csrf']").attr("content"),
     			header: $("meta[name='_csrf_header']").attr("content")
     		},
     		cheackImageFiles: function() {
-    			$("#images").change(function(e) {
+    			$(".images__input").change(function(e) {
     				let files = this.files
     				if (files.length > 3) {
     					alert("이미지는 최대 3개까지만 가능합니다.")
@@ -140,21 +175,52 @@
 			deletePost: function() {
 				let $this = this;
 				$("#post-del-btn").click(function() {
-					const boardId = $(".wrap__board").data("id");
+					if (confirm('삭제하시겠습니까?')) {
+						const boardId = $(".wrap__board").data("id");
+						$.ajax({
+				            type: 'DELETE',
+				            url: `/post/${boardId}`,
+				            dataType: 'json',
+				            contentType: 'application/json; charset=utf-8',
+				            beforeSend: function(xhr) {
+			    				xhr.setRequestHeader($this.csrf.header, $this.csrf.token);
+			    			}
+				        }).done(function(result) {
+				        	if (result.msg === "success") {
+					        	alert("게시글이 삭제되었습니다.");
+					        	location.href = "/board";
+				        	} else {
+				        		alert("게시글 등록에 실패했습니다. 다시 작성해주세요");
+				        		location.reload();
+				        	}
+				        }).fail(function (error) {
+				            console.log(error);
+				        });  
+					} 
+				})
+			},
+			modifiedPost: function() {
+				let $this = this;
+				$("#btn-write-modified").click(function() {
+					let post = new FormData($("#modified-frm")[0]);
+					let postId = $(".wrap__board").data("id");
 					$.ajax({
-			            type: 'DELETE',
-			            url: `/post/${boardId}`,
+			            type: 'POST',
+			            url: `/post/${postId}`,
 			            dataType: 'json',
-			            contentType: 'application/json; charset=utf-8',
+			            contentType: false,//'application/json; charset=utf-8',
+			            processData: false,
+			            enctype: 'multipart/form-data',
+			            data: post,//post,//JSON.stringify(post),
 			            beforeSend: function(xhr) {
 		    				xhr.setRequestHeader($this.csrf.header, $this.csrf.token);
 		    			}
 			        }).done(function(result) {
 			        	if (result.msg === "success") {
-				        	alert("게시글이 삭제되었습니다.");
-				        	location.href = "/board";
+				        	alert("게시글이 수정되었습니다.");
+				        	location.reload();
 			        	} else {
-			        		alert("게시글 등록에 실패했습니다. 다시 작성해주세요");
+			        		alert("게시글 수정에 실패했습니다. 다시 작성해주세요");
 			        		location.reload();
 			        	}
 			        }).fail(function (error) {

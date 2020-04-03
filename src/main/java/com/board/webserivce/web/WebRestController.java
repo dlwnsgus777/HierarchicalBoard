@@ -80,7 +80,8 @@ public class WebRestController {
 	
 	@PostMapping("/post/save")//@RequestParam("images") List<MultipartFile> images,
 	public ResponseEntity<Map<String, Object>> test(BoardsSaveRequestDto boardDto, ImagesSaveRequestDto imageDto, Principal principal) {
-		Long boardId = boardService.savePost(boardDto, principal);
+		String userId = principal.getName();
+		Long boardId = boardService.savePost(boardDto, userId);
 		long checkFileSize = imageDto.getImages().get(0).getSize();
 		
 		if (checkFileSize > 0) {
@@ -95,6 +96,25 @@ public class WebRestController {
 	public ResponseEntity<Map<String, Object>> deletePost(@PathVariable Long id, Principal principal) {
 		String userId = principal.getName();
 		boardService.deletePost(id, userId);
+		
+		Map<String, Object> responseMap = new HashMap<>();
+		responseMap.put("msg", "success");
+		return new ResponseEntity<>(responseMap, HttpStatus.OK);
+	} 
+	
+	@PostMapping("/post/{id}")
+	public ResponseEntity<Map<String, Object>> modifiedPost(@PathVariable Long id, 
+									BoardsSaveRequestDto boardDto, 
+									ImagesSaveRequestDto imageDto,
+									Principal principal) {
+		String userId = principal.getName();
+		boardService.modifiedPost(boardDto, imageDto, userId, id);
+		
+		long checkFileSize = imageDto.getImages().get(0).getSize();
+		
+		if (checkFileSize > 0) {
+			imagesService.saveImages(imageDto, id);
+		}
 		
 		Map<String, Object> responseMap = new HashMap<>();
 		responseMap.put("msg", "success");

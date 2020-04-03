@@ -1,6 +1,7 @@
 package com.board.webserivce.dto.boards;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.List;
 
 import com.board.webserivce.domain.boards.Boards;

@@ -21,6 +21,7 @@ import com.board.webserivce.domain.users.UsersRepository;
 import com.board.webserivce.dto.boards.BoardsFindAllResponseDto;
 import com.board.webserivce.dto.boards.BoardsFindResponseDto;
 import com.board.webserivce.dto.boards.BoardsSaveRequestDto;
+import com.board.webserivce.dto.images.ImagesSaveRequestDto;
 
 import ch.qos.logback.core.pattern.Converter;
 import lombok.AllArgsConstructor;
@@ -32,8 +33,7 @@ public class BoardService {
 	private UsersRepository usersRepository;
 	
 	@Transactional
-	public Long savePost(BoardsSaveRequestDto boardDto, Principal principal) {
-		String userId = principal.getName();
+	public Long savePost(BoardsSaveRequestDto boardDto, String userId) {
 		Users user = usersRepository.findByUserId(userId).get();
 		
 		boardDto.setAuthor(user);
@@ -52,7 +52,7 @@ public class BoardService {
 	public void deletePostAfterDelUser(Long userId) {
 		List<Boards> boards = boardRepository.findByAuthorId(userId);
 		for(Boards board: boards) {
-			board.deleteBoard();
+			board.deletePost();
 		}
 	}
 	
@@ -68,7 +68,7 @@ public class BoardService {
 	@Transactional// Page<Boards>
 	public Page<BoardsFindAllResponseDto> findAllPost(int page) {
 		int pageNumber = page - 1;
-		Pageable pageAble = PageRequest.of(pageNumber, 5);
+		Pageable pageAble = PageRequest.of(pageNumber, 10);
 		//ModelMapper modelmapper = new ModelMapper();
 		//Type listType = new TypeToken<Page<BoardsFindAllResponseDto>>(){}.getType();
 		Page<Boards> boards = boardRepository.findAllBoards(pageAble);
@@ -89,12 +89,28 @@ public class BoardService {
 	}
 	
 	@Transactional
-	public void deletePost(Long boardId, String userId) {
+	public void deletePost(Long postId, String userId) {
 		Users user = usersRepository.findByUserId(userId).get();
-		Boards board = boardRepository.findById(boardId).get();
+		Boards board = boardRepository.findById(postId).get();
 		
 		if (user.getUserId().equals(board.getAuthor().getUserId()) ) {
-			board.deleteBoard();
+			board.deletePost();
 		}
+	}
+	
+	@Transactional
+	public void modifiedPost(BoardsSaveRequestDto boardDto, 
+							ImagesSaveRequestDto imageDto,
+							String userId,
+							Long postId) {
+		
+		Users user = usersRepository.findByUserId(userId).get();
+		Boards board = boardRepository.findById(postId).get();
+		
+		if (user.getUserId().equals(board.getAuthor().getUserId()) ) {
+			// 수정 로직
+			board.updatePost(boardDto.getTitle(), boardDto.getContent());
+		}
+		
 	}
 }

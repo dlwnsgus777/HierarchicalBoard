@@ -65,6 +65,7 @@ public interface BoardsRepository extends JpaRepository<Boards, Long> {
 			"		   ,created_date\r\n" + 
 			"           ,modified_date\r\n" + 
 			"           ,CAST(id as CHAR(255)) lvl\r\n" + 
+            "           ,id as groupno\r\n" +
 			"	FROM boards\r\n" + 
 			"    WHERE parent_id IS NULL\r\n" + 
 			"    UNION ALL\r\n" + 
@@ -77,6 +78,7 @@ public interface BoardsRepository extends JpaRepository<Boards, Long> {
 			"           ,b.created_date\r\n" + 
 			"           ,b.modified_date\r\n" + 
 			"           ,CONCAT(c.lvl, \",\", b.id) lvl\r\n" + 
+			"           ,left(c.lvl, 1) as groupno\r\n" +
 			"	FROM boards b\r\n" + 
 			"	INNER JOIN CTS c\r\n" + 
 			"	ON b.parent_id = c.id\r\n" + 
@@ -93,7 +95,7 @@ public interface BoardsRepository extends JpaRepository<Boards, Long> {
 			"from cts as b\r\n" + 
 //			"join users as u\r\n" + 
 //			"on b.author_id = u.id\r\n" + 
-			"ORDER BY  created_date desc, lvl",
+			"ORDER BY groupno desc, lvl",
 			countQuery = "SELECT count(*) FROM boards",
 			nativeQuery = true)
 	Page<Boards> findAllBoards(Pageable pageable);
