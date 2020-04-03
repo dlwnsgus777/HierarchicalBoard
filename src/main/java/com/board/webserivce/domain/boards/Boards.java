@@ -81,4 +81,8 @@ public class Boards extends BaseTimeEntity {
 		this.content = content == null ? "" : content;
 		
 	}
+	
+	public void deleteImage() {
+		this.images.clear();
+	}
 }

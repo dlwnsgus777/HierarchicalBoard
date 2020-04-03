@@ -78,7 +78,7 @@ public interface BoardsRepository extends JpaRepository<Boards, Long> {
 			"           ,b.created_date\r\n" + 
 			"           ,b.modified_date\r\n" + 
 			"           ,CONCAT(c.lvl, \",\", b.id) lvl\r\n" + 
-			"           ,left(c.lvl, 1) as groupno\r\n" +
+			"           ,substring_index(c.lvl, \",\",1) as groupno\r\n" +
 			"	FROM boards b\r\n" + 
 			"	INNER JOIN CTS c\r\n" + 
 			"	ON b.parent_id = c.id\r\n" + 

@@ -45,7 +45,6 @@ public class ImagesService {
 				}
 				image.transferTo(file);
 				imageDto.setImageDto(fileName, boardId);
-				System.out.println(imageDto.getFileName());
 				imagesRepository.save(imageDto.toEntity());
 			} catch (IOException e) {
 				// TODO: handle exception

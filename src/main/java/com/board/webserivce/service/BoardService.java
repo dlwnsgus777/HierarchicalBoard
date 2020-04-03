@@ -110,7 +110,7 @@ public class BoardService {
 		if (user.getUserId().equals(board.getAuthor().getUserId()) ) {
 			// 수정 로직
 			board.updatePost(boardDto.getTitle(), boardDto.getContent());
+			board.deleteImage();
 		}
-		
 	}
 }
