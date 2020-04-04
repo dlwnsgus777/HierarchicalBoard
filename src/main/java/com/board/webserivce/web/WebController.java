@@ -1,6 +1,7 @@
 package com.board.webserivce.web;
 
 import java.security.Principal;
+import java.time.LocalDate;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
@@ -80,8 +81,10 @@ public class WebController {
 	public String getPosts(@RequestParam("page") int page, ModelMap model) {
 		Page<BoardsFindAllResponseDto> boards = boardService.findAllPost(page);
 		Pageable pageAble = boards.getPageable();
+		System.out.println(LocalDate.now());
 		model.addAttribute("page", PageUtils.getPages(pageAble, boards.getTotalPages()));
 		model.addAttribute("posts", boards);
+		model.addAttribute("nowTime", LocalDate.now());
 		model.addAttribute("msg", "success");
 		return  "cmmn/postList";
 	}

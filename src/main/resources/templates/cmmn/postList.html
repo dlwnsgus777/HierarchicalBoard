@@ -12,7 +12,11 @@
                 <td class="text-center" scope="row" th:attr="data-id=${post.authorName} == null ? 'del' :${post.id}" th:text="${post.id}"></td>
                 <td class="text-overflow" style="max-width: 300px;">
                   <div th:if="${post.depth} > 0" th:each="page : ${#numbers.sequence(1, post.depth)}"  th:text="${post.depth} == ${page} ? 'ㄴ' : '&nbsp;&nbsp;&nbsp;&nbsp;'" style="float:left;"></div>
-                 <div th:text="${post.title}"></div>
+                 <div style="display:flex;">
+                 <div th:text="${post.title}">
+                 </div>
+                  <span th:if="${post.createdDate} == ${nowTime}" class="badge new-badge"><span class="new-badge-text">N</span></span>
+                  </div>
                 </td>
                 <td class="text-overflow" style="max-width: 100px;" th:text="${post.authorName} == null ? '탈퇴한유저' :${post.authorName}"></td>
                 <td class="text-center" th:text="${post.createdDate}"></td>

@@ -91,10 +91,7 @@ public interface BoardsRepository extends JpaRepository<Boards, Long> {
 			"      ,b.created_date\r\n" + 
 			"      ,b.modified_date\r\n" + 
 			"	  ,author_id\r\n" + 
-//			"      ,u.user_name\r\n" + 
 			"from cts as b\r\n" + 
-//			"join users as u\r\n" + 
-//			"on b.author_id = u.id\r\n" + 
 			"ORDER BY groupno desc, lvl",
 			countQuery = "SELECT count(*) FROM boards",
 			nativeQuery = true)

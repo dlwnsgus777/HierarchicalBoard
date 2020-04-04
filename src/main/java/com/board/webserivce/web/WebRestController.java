@@ -1,6 +1,7 @@
 package com.board.webserivce.web;
 
 import java.security.Principal;
+import java.time.LocalDate;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -135,6 +136,7 @@ public class WebRestController {
 		Pageable page = boards.getPageable();
 		model.addAttribute("page", PageUtils.getPages(page, boards.getTotalPages()));
 		model.addAttribute("posts", boards);
+		model.addAttribute("nowTime", LocalDate.now());
 		model.addAttribute("msg", "success");
 		return  new ResponseEntity<>(model, HttpStatus.OK);
 	}
