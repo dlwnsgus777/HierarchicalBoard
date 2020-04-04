@@ -18,7 +18,6 @@ import lombok.Setter;
 public class BoardsFindAllResponseDto {
 	private Long id;
 	private String title;
-	private String content;
 	private Long authorId;
 	private int depth;
 	private String authorName;
@@ -27,7 +26,6 @@ public class BoardsFindAllResponseDto {
 	public void converEntityToDto(Boards boards) {
 		this.id = boards.getId();
 		this.title = boards.getTitle();
-		this.content = boards.getContent();
 		this.authorId = boards.getAuthor() == null ? null :  boards.getAuthor().getId();
 		this.depth = boards.getDepth();
 		this.authorName = boards.getAuthor() == null ? null :boards.getAuthor().getUserName();
