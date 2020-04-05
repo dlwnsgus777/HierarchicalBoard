@@ -88,15 +88,4 @@ public class WebController {
 		model.addAttribute("msg", "success");
 		return  "cmmn/postList";
 	}
-//	@GetMapping("/test")
-//	public String test(Principal prin, ModelMap model) {
-//		List<Boards> boards = bb.findAllBoard();
-//		Users user = users.get();
-//		Boards bo = Boards.builder().title("tq").content("test content").depth(0).parentId(null).authorId(user.getId()).build();
-//		bb.save(bo);
-//		user.addBoard(bb.findAll().get(0));
-//		model.addAttribute("test", boards);
-//		return  "contents/info";
-//	}
-	
 }

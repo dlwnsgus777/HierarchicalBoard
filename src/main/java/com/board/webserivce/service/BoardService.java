@@ -65,14 +65,11 @@ public class BoardService {
 		return boardsDto;
 	}
 	
-	@Transactional// Page<Boards>
+	@Transactional
 	public Page<BoardsFindAllResponseDto> findAllPost(int page) {
 		int pageNumber = page - 1;
 		Pageable pageAble = PageRequest.of(pageNumber, 10);
-		//ModelMapper modelmapper = new ModelMapper();
-		//Type listType = new TypeToken<Page<BoardsFindAllResponseDto>>(){}.getType();
 		Page<Boards> boards = boardRepository.findAllBoards(pageAble);
-		//Page<BoardsFindAllResponseDto> boardsDto = modelmapper.map(boards, listType);
 		Page<BoardsFindAllResponseDto> boardsDto = boards.map(new Function<Boards, BoardsFindAllResponseDto>() {
 
 			@Override

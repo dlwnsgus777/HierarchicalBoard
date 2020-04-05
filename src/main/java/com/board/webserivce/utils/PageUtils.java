@@ -21,9 +21,6 @@ public class PageUtils {
 		}
 		
 		int inPage = (pageNumber - 1) / size + 1;
-//		int startPage = (inPage - 1) * pageScale; 
-//		int endPage = inPage * pageScale;
-//		System.out.println("startPageTest : " + startPageTest +  ", " + endPageTest);
 		System.out.println(pageNumber +" : " + startPage + ", " + endPage);
 		pageMap.put("startPage", startPage);
 		pageMap.put("endPage", endPage);
