@@ -123,11 +123,12 @@
     		clickPost: function() {
     			$("#post__list").on("click", "#wrap__post td", function() {
     				const postId = $(this).parent().children(":first").data("id");
-    				if (postId === "del") {
+    				const delYn = $(this).parent().data("delyn");
+     				if (postId === "del" || delYn === "Y") {
     					alert("삭제된 게시글 입니다.")
     				} else {
     					location.href=`/post/${postId}`;
-    				}
+    				} 
     				
     			})
     		},
@@ -155,20 +156,6 @@
     	}
     	$(function() {
     		board.init()
-
-			 $.ajax({
-		            type: 'GET',
-		            url: `test`,
-		            dataType: 'json',
-		            contentType:'application/json; charset=utf-8',
-		            beforeSend: function(xhr) {
-	    				xhr.setRequestHeader(board.csrf.header, board.csrf.token);
-	    			}
-		        }).done(function(result) {
-					console.log(result)
-		        }).fail(function (error) {
-		            console.log(error);
-		        }); 
     	});
 
     </script>

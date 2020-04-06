@@ -8,7 +8,7 @@
             </tr>
         </thead>
         <tbody id="wrap__post">
-            <tr th:each="post: ${posts.content}">
+            <tr th:attr="data-delyn=${post.delYn}" th:each="post: ${posts.content}">
                 <td class="text-center" scope="row" th:attr="data-id=${post.authorName} == null ? 'del' :${post.id}" th:text="${post.id}"></td>
                 <td class="text-overflow" style="max-width: 300px;">
                   <div th:if="${post.depth} > 0" th:each="page : ${#numbers.sequence(1, post.depth)}"  th:text="${post.depth} == ${page} ? 'ㄴ' : '&nbsp;&nbsp;&nbsp;&nbsp;'" style="float:left;"></div>

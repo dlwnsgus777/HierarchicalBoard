@@ -22,6 +22,7 @@ public class BoardsFindAllResponseDto {
 	private int depth;
 	private String authorName;
 	private LocalDate createdDate;
+	private String delYn;
 	
 	public void converEntityToDto(Boards boards) {
 		this.id = boards.getId();
@@ -30,5 +31,6 @@ public class BoardsFindAllResponseDto {
 		this.depth = boards.getDepth();
 		this.authorName = boards.getAuthor() == null ? null :boards.getAuthor().getUserName();
 		this.createdDate = boards.getCreatedDate();
+		this.delYn = boards.getDelYn();
 	}
 }

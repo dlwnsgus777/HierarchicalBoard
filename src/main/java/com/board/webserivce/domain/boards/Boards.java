@@ -50,6 +50,9 @@ public class Boards extends BaseTimeEntity {
 	@ColumnDefault("null")
 	private Long parentId;
 	
+	@ColumnDefault("N")
+	private String delYn;
+	
 	@ManyToOne
 	@JoinColumn(name = "author_id")
 	private Users author;
@@ -59,15 +62,16 @@ public class Boards extends BaseTimeEntity {
 	private List<Images> images = new ArrayList<>();
 	
 	@Builder
-	public Boards(String content, String title, Long parentId, int depth, Users author) {
+	public Boards(String content, String title, Long parentId, int depth, Users author, String delYn) {
 		this.title = title;
 		this.content = content;
 		this.parentId = parentId;
 		this.depth = depth;
 		this.author = author;
+		this.delYn = delYn;
 	}
 	
-	public void deletePost() {
+	public void deleteUserPost() {
 		this.title = "삭제 되었습니다.";
 		this.author = null;
 		this.images.clear();
@@ -80,6 +84,11 @@ public class Boards extends BaseTimeEntity {
 		
 		this.content = content == null ? "" : content;
 		
+	}
+	
+	public void deletePost() {
+		this.title = "삭제 되었습니다.";
+		this.delYn = "Y";
 	}
 	
 	public void deleteImage() {

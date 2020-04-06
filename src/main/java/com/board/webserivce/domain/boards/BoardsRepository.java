@@ -62,6 +62,7 @@ public interface BoardsRepository extends JpaRepository<Boards, Long> {
 			"           ,depth\r\n" + 
 			"           ,parent_id\r\n" + 
 			"           ,author_id\r\n" + 
+			"           ,del_yn\r\n" + 
 			"		   ,created_date\r\n" + 
 			"           ,modified_date\r\n" + 
 			"           ,CAST(id as CHAR(255)) lvl\r\n" + 
@@ -75,6 +76,7 @@ public interface BoardsRepository extends JpaRepository<Boards, Long> {
 			"           ,b.depth\r\n" + 
 			"           ,b.parent_id\r\n" + 
 			"           ,b.author_id\r\n" + 
+			"           ,b.del_yn\r\n" + 
 			"           ,b.created_date\r\n" + 
 			"           ,b.modified_date\r\n" + 
 			"           ,CONCAT(c.lvl, \",\", b.id) lvl\r\n" + 
@@ -90,6 +92,7 @@ public interface BoardsRepository extends JpaRepository<Boards, Long> {
 			"      ,parent_id\r\n" + 
 			"      ,b.created_date\r\n" + 
 			"      ,b.modified_date\r\n" + 
+			"      ,del_yn\r\n" + 
 			"	  ,author_id\r\n" + 
 			"from cts as b\r\n" + 
 			"ORDER BY groupno desc, lvl",

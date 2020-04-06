@@ -23,6 +23,7 @@ public class BoardsSaveRequestDto {
 	private Users author;
 	private int depth;
 	private Long parentId;
+	private String delYn = "N";
 	
 	
 	public Boards toEntity() {
@@ -32,6 +33,7 @@ public class BoardsSaveRequestDto {
 				.author(author)
 				.depth(depth)
 				.parentId(parentId)
+				.delYn(delYn)
 				.build();
 	}
 	

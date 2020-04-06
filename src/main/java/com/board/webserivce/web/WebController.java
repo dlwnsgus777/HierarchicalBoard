@@ -36,7 +36,6 @@ import lombok.AllArgsConstructor;
 @AllArgsConstructor
 public class WebController {
 	private UsersRepository userRepository;
-	private BoardsRepository bb;
 	private BoardService boardService;
 	
 	@GetMapping("/")

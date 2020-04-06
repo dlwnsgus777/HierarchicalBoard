@@ -52,7 +52,7 @@ public class BoardService {
 	public void deletePostAfterDelUser(Long userId) {
 		List<Boards> boards = boardRepository.findByAuthorId(userId);
 		for(Boards board: boards) {
-			board.deletePost();
+			board.deleteUserPost();
 		}
 	}
 	
